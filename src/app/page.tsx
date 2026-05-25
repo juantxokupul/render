@@ -51,7 +51,7 @@ export default function Home() {
         </div>
 
         {/* Fiestas Section */}
-        <div style={{
+        <div className="section-inner-padded" style={{
           background: "linear-gradient(135deg, #3d1a0a 0%, #2d1810 100%)",
           padding: "4rem",
           borderRadius: "15px",
@@ -126,34 +126,35 @@ export default function Home() {
         <p style={{ fontSize: "1.1rem", color: "#f5e6d3", marginBottom: "2rem", maxWidth: "600px", margin: "0 auto 2rem" }}>
           Reserva tu mesa o ven a celebrar nuestras increíbles fiestas nocturnas
         </p>
-        <Link href="/contacto" style={{
-          display: "inline-block",
-          padding: "1rem 2.5rem",
-          fontSize: "1rem",
-          fontWeight: "700",
-          background: "#fff",
-          color: "#d4a574",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          marginRight: "1rem",
-          textDecoration: "none"
-        }}>
-          Reservar Mesa
-        </Link>
-        <Link href="/contacto" style={{
-          display: "inline-block",
-          padding: "1rem 2.5rem",
-          fontSize: "1rem",
-          fontWeight: "700",
-          background: "transparent",
-          color: "#fff",
-          border: "2px solid #fff",
-          borderRadius: "8px",
-          textDecoration: "none"
-        }}>
-          Contáctanos
-        </Link>
+        <div className="cta-buttons">
+          <Link href="/contacto" style={{
+            display: "inline-block",
+            padding: "1rem 2.5rem",
+            fontSize: "1rem",
+            fontWeight: "700",
+            background: "#fff",
+            color: "#d4a574",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            textDecoration: "none"
+          }}>
+            Reservar Mesa
+          </Link>
+          <Link href="/contacto" style={{
+            display: "inline-block",
+            padding: "1rem 2.5rem",
+            fontSize: "1rem",
+            fontWeight: "700",
+            background: "transparent",
+            color: "#fff",
+            border: "2px solid #fff",
+            borderRadius: "8px",
+            textDecoration: "none"
+          }}>
+            Contáctanos
+          </Link>
+        </div>
       </section>
 
       <Footer />

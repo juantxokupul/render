@@ -62,12 +62,33 @@ code {
 }
 
 /* ── Mobile breakpoint ── */
+/* ── CTA buttons ── */
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
   .grid-2col,
   .grid-2col-wide,
   .grid-3col,
   .grid-footer {
     grid-template-columns: 1fr;
+  }
+
+  .section-inner-padded {
+    padding: 2rem 1.25rem !important;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-buttons a {
+    text-align: center;
   }
 
   .nav-hamburger {
