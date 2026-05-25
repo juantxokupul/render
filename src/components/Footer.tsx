@@ -78,7 +78,7 @@ export default function Footer() {
       </div>
 
       <div style={{ borderTop: "1px solid #222", padding: "1.25rem 2rem", textAlign: "center", fontSize: "0.85rem", color: "#555" }}>
-        © 2024 Villa Nabo · Carnes a la Brasa Artesanales · Todos los derechos reservados
+        © 2026 Villa Nabo · Carnes a la Brasa Artesanales · Todos los derechos reservados
       </div>
     </footer>
   );
