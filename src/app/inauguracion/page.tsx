@@ -130,7 +130,7 @@ export default function InauguracionPage() {
       <section id="programa" style={{ background: "#111", padding: "5rem 2rem" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
           <h3 style={{ fontSize: "2.2rem", fontWeight: "800", color: "#e67e22", marginBottom: "0.5rem", textAlign: "center" }}>Programa de la Noche</h3>
-          <p style={{ color: "#7a6a5a", textAlign: "center", marginBottom: "3.5rem" }}>Viernes 6 de Junio · Camino Rural de Villa Nabo, Arauzo de Torre</p>
+          <p style={{ color: "#7a6a5a", textAlign: "center", marginBottom: "3.5rem" }}>Sábado 6 de Junio · Camino Rural de Villa Nabo, Arauzo de Torre</p>
 
           <div style={{ position: "relative" }}>
             {/* Línea vertical */}

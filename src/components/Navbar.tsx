@@ -67,7 +67,7 @@ export default function Navbar() {
         }}>
           <span style={{ fontSize: "1.3rem" }}>🎉</span>
           <p style={{ margin: 0, fontWeight: "800", fontSize: "0.95rem", color: "#fff", letterSpacing: "0.5px" }}>
-            GRAN FIESTA DE INAUGURACIÓN · <span style={{ color: "#ffe066" }}>Viernes 6 de Junio</span>
+            GRAN FIESTA DE INAUGURACIÓN · <span style={{ color: "#ffe066" }}>Sábado 6 de Junio</span>
           </p>
           <Link href="/inauguracion" style={{
             background: "#fff",
