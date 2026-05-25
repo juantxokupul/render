@@ -18,7 +18,7 @@ const redes = [
 export default function Footer() {
   return (
     <footer style={{ background: "#111", borderTop: "3px solid #d4a574", color: "#b0a090", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "3.5rem 2rem 2rem", display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "3rem" }}>
+      <div className="grid-footer" style={{ maxWidth: "1200px", margin: "0 auto", padding: "3.5rem 2rem 2rem", gap: "3rem" }}>
 
         {/* Brand */}
         <div>

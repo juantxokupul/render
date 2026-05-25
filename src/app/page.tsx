@@ -31,7 +31,7 @@ export default function Home() {
 
       {/* Main Content */}
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center", marginBottom: "6rem" }}>
+        <div className="grid-2col" style={{ gap: "4rem", alignItems: "center", marginBottom: "6rem" }}>
           <div>
             <h3 style={{ fontSize: "2.5rem", fontWeight: "800", color: "#d4a574", marginBottom: "1.5rem" }}>
               Nuestras Carnes

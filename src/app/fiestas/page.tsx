@@ -68,9 +68,7 @@ export default function FiestasPage() {
         </h3>
         <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
           {eventos.map((evento) => (
-            <div key={evento.dia} style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
+            <div key={evento.dia} className="grid-2col" style={{
               gap: "3rem",
               alignItems: "center",
               background: "rgba(30, 20, 10, 0.6)",
@@ -97,7 +95,7 @@ export default function FiestasPage() {
         <h3 style={{ fontSize: "2rem", fontWeight: "800", color: "#d4a574", marginBottom: "2.5rem", textAlign: "center" }}>
           Galería de Momentos
         </h3>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+        <div className="grid-3col" style={{ maxWidth: "1200px", margin: "0 auto", gap: "1rem" }}>
           {galeria.map((src, i) => (
             <img key={i} src={src} alt={`Momento ${i + 1}`} style={{ width: "100%", height: "220px", objectFit: "cover", borderRadius: "10px", border: "2px solid #2d1810" }} />
           ))}

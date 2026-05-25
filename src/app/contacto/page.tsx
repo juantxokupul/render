@@ -43,7 +43,7 @@ export default function ContactoPage() {
       </section>
 
       {/* Contenido */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem", alignItems: "start" }}>
+      <section className="grid-2col-wide" style={{ maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", gap: "4rem", alignItems: "start" }}>
 
         {/* Info */}
         <div>
@@ -92,7 +92,7 @@ export default function ContactoPage() {
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               <h3 style={{ fontSize: "1.5rem", fontWeight: "800", color: "#d4a574", marginBottom: "0.5rem" }}>Reserva tu Mesa</h3>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
                   <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Nombre</label>
                   <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required style={inputStyle} />
@@ -108,7 +108,7 @@ export default function ContactoPage() {
                 <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" required style={inputStyle} />
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
                   <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Fecha</label>
                   <input name="fecha" type="date" value={form.fecha} onChange={handleChange} required style={inputStyle} />

@@ -170,7 +170,7 @@ export default function InauguracionPage() {
       </section>
 
       {/* Imagen + texto */}
-      <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "5rem 2rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
+      <section className="grid-2col" style={{ maxWidth: "1100px", margin: "0 auto", padding: "5rem 2rem", gap: "4rem", alignItems: "center" }}>
         <img
           src="https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="Fiesta de inauguración"
