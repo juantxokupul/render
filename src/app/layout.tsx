@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Next.js App",
-  description: "A simple Next.js starting point",
+  title: "Villa Nabo",
+  description: "Disfruta de nuestras mejores carnes en un ambiente acogedor y auténtico.",
 };
 
 export default function RootLayout({
