@@ -153,6 +153,7 @@ select:focus-visible {
   }
 
   .cta-buttons a {
+    justify-content: center;
     text-align: center;
   }
 

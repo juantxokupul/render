@@ -66,10 +66,11 @@ export default function Home() {
           </h2>
           <p style={{
             fontSize: "1.15rem",
-            color: "var(--text-muted)",
+            color: "var(--text)",
             maxWidth: "620px",
             margin: "0 auto 2.5rem",
             lineHeight: 1.7,
+            textShadow: "0 2px 12px rgba(0,0,0,0.6)",
           }}>
             Un refugio rural donde la tradición de la brasa se encuentra con noches de música, cocktails y atardeceres inolvidables.
           </p>
@@ -83,8 +84,9 @@ export default function Home() {
               color: "var(--bg)",
               borderRadius: "var(--r-sm)",
               textDecoration: "none",
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: "0.95rem",
+              letterSpacing: "0.01em",
               boxShadow: "var(--shadow-gold)",
               transition: "transform 0.2s ease, box-shadow 0.2s ease",
             }}
@@ -102,8 +104,9 @@ export default function Home() {
               border: "1px solid var(--border-strong)",
               borderRadius: "var(--r-sm)",
               textDecoration: "none",
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: "0.95rem",
+              letterSpacing: "0.01em",
               transition: "border-color 0.2s, color 0.2s",
             }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
@@ -316,8 +319,9 @@ export default function Home() {
             border: "1px solid var(--border-strong)",
             borderRadius: "var(--r-sm)",
             textDecoration: "none",
-            fontWeight: 600,
+            fontWeight: 700,
             fontSize: "0.95rem",
+            letterSpacing: "0.01em",
           }}>
             Contáctanos
           </Link>
