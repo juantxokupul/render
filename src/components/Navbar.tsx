@@ -115,6 +115,7 @@ export default function Navbar() {
               fontSize: "0.95rem",
               color: "#0a0a0a",
               letterSpacing: "0.03em",
+              textAlign: "center",
             }}>
               GRAN FIESTA DE INAUGURACIÓN · <span style={{ fontWeight: 800 }}>Sábado 6 de Junio</span>
             </p>
