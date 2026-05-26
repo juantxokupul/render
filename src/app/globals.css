@@ -1,3 +1,40 @@
+:root {
+  /* Base */
+  --bg: #0a0a0a;
+  --bg-elevated: #161310;
+  --bg-elevated-2: #1f1a14;
+  --border: #2a221a;
+  --border-strong: #3a2f23;
+
+  /* Brand */
+  --gold: #d4a574;
+  --gold-soft: #e8c4a0;
+  --gold-deep: #b88a5a;
+  --ember: #e07856;
+  --ember-soft: #f1a07f;
+
+  /* Text */
+  --text: #f5ebda;
+  --text-muted: #a89986;
+  --text-dim: #7a6a5a;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-pill: 999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.55);
+  --shadow-gold: 0 12px 36px rgba(212, 165, 116, 0.18);
+  --shadow-ember: 0 12px 36px rgba(224, 120, 86, 0.22);
+
+  /* Type */
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,43 +47,51 @@ html, body {
 }
 
 body {
-  background: #f5f5f5;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 }
 
 code {
-  background: #e0e0e0;
+  background: var(--bg-elevated);
   padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: "Courier New", monospace;
+  border-radius: var(--r-sm);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ── Focus ring (accessibility) ── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.18);
 }
 
 /* ── Responsive grid utilities ── */
-.grid-2col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+.grid-2col { display: grid; grid-template-columns: 1fr 1fr; }
+.grid-2col-wide { display: grid; grid-template-columns: 1fr 1.4fr; }
+.grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); }
+.grid-footer { display: grid; grid-template-columns: 2fr 1fr 1fr; }
 
-.grid-2col-wide {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-}
-
-.grid-3col {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.grid-footer {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-}
-
-/* ── Navbar mobile ── */
 .nav-links {
   display: flex;
   gap: 2.5rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
   align-items: center;
 }
 
@@ -55,19 +100,39 @@ code {
   background: none;
   border: none;
   cursor: pointer;
-  color: #d4a574;
+  color: var(--gold);
   font-size: 1.6rem;
   line-height: 1;
   padding: 0.25rem;
+  transition: transform 0.25s ease, color 0.2s ease;
 }
 
-/* ── Mobile breakpoint ── */
-/* ── CTA buttons ── */
+.nav-hamburger:hover { color: var(--gold-soft); }
+.nav-hamburger[aria-expanded="true"] { transform: rotate(90deg); }
+
 .cta-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Card hover lift used across pages */
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.92); }
+}
+
+.pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
@@ -103,10 +168,11 @@ code {
     top: 100%;
     left: 0;
     right: 0;
-    background: #1a1a1a;
-    border-bottom: 2px solid #d4a574;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
     z-index: 99;
     padding: 0.5rem 0;
+    box-shadow: var(--shadow-md);
   }
 
   .nav-links.open {
@@ -115,7 +181,7 @@ code {
 
   .nav-links a {
     padding: 0.9rem 2rem !important;
-    border-bottom: 1px solid #2d1810;
+    border-bottom: 1px solid var(--border);
     font-size: 1rem !important;
   }
 }

@@ -2,8 +2,23 @@
 
 import { useState } from "react";
 import Navbar from "@/src/components/Navbar";
-
 import Footer from "@/src/components/Footer";
+import { MapPin, Phone, Mail, Clock, CheckCircle2, type LucideIcon } from "lucide-react";
+
+type InfoItem = { Icon: LucideIcon; titulo: string; lineas: string[] };
+
+const infoItems: InfoItem[] = [
+  { Icon: MapPin, titulo: "Dirección", lineas: ["Camino Rural de Villa Nabo, s/n", "09451 Arauzo de Torre, Burgos"] },
+  { Icon: Phone, titulo: "Teléfono", lineas: ["+34 666 666 666", "Lunes a Domingo 10:00 - 23:00"] },
+  { Icon: Mail, titulo: "Email", lineas: ["hola@villanabo.es", "Respondemos en menos de 24h"] },
+];
+
+const horarios: [string, string][] = [
+  ["Lunes – Jueves", "12:00 – 22:00"],
+  ["Viernes", "12:00 – 02:00"],
+  ["Sábado", "11:00 – 03:00"],
+  ["Domingo", "11:00 – 20:00"],
+];
 
 export default function ContactoPage() {
   const [form, setForm] = useState({ nombre: "", email: "", telefono: "", fecha: "", personas: "2", mensaje: "" });
@@ -21,100 +36,189 @@ export default function ContactoPage() {
   const inputStyle = {
     width: "100%",
     padding: "0.85rem 1rem",
-    background: "#1a1a1a",
-    border: "1px solid #3a2a1a",
-    borderRadius: "8px",
-    color: "#fff",
-    fontSize: "1rem",
+    background: "var(--bg)",
+    border: "1px solid var(--border-strong)",
+    borderRadius: "var(--r-sm)",
+    color: "var(--text)",
+    fontSize: "0.95rem",
+    fontFamily: "var(--font-sans)",
     outline: "none",
-    boxSizing: "border-box" as const
+    boxSizing: "border-box" as const,
+    transition: "border-color 0.2s, box-shadow 0.2s",
+  };
+
+  const labelStyle = {
+    display: "block",
+    color: "var(--text-muted)",
+    fontSize: "0.85rem",
+    fontWeight: 500,
+    marginBottom: "0.4rem",
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0f0f", color: "#fff", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
 
       {/* Hero */}
-      <section style={{ background: "linear-gradient(135deg, #2d1810 0%, #1a1a1a 100%)", padding: "5rem 2rem", textAlign: "center", borderBottom: "3px solid #d4a574" }}>
-        <h2 style={{ fontSize: "3rem", fontWeight: "900", color: "#d4a574", marginBottom: "1rem" }}>Contacto & Reservas</h2>
-        <p style={{ fontSize: "1.1rem", color: "#b0a090", maxWidth: "600px", margin: "0 auto" }}>
+      <section style={{
+        background: "var(--bg-elevated)",
+        padding: "5rem 2rem 4rem",
+        textAlign: "center",
+        borderBottom: "1px solid var(--border)",
+      }}>
+        <p style={{
+          fontSize: "0.8rem",
+          fontWeight: 600,
+          color: "var(--ember)",
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          marginBottom: "1rem",
+        }}>
+          Estamos aquí
+        </p>
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(2.25rem, 5vw, 3rem)",
+          fontWeight: 700,
+          color: "var(--text)",
+          marginBottom: "1rem",
+        }}>
+          Contacto & Reservas
+        </h2>
+        <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}>
           ¿Tienes preguntas o quieres reservar tu mesa? Estamos aquí para ayudarte.
         </p>
       </section>
 
       {/* Contenido */}
-      <section className="grid-2col-wide" style={{ maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", gap: "4rem", alignItems: "start" }}>
+      <section className="grid-2col-wide" style={{ maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", gap: "3.5rem", alignItems: "start" }}>
 
         {/* Info */}
         <div>
-          <h3 style={{ fontSize: "1.6rem", fontWeight: "800", color: "#d4a574", marginBottom: "2rem" }}>Información</h3>
+          <h3 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.5rem",
+            fontWeight: 700,
+            color: "var(--text)",
+            marginBottom: "1.5rem",
+          }}>
+            Información
+          </h3>
 
-          {[
-            { icon: "📍", titulo: "Dirección", lineas: ["Camino Rural de Villa Nabo, s/n", "09451 Arauzo de Torre, Burgos"] },
-            { icon: "📞", titulo: "Teléfono", lineas: ["+34 666 666 666", "Lunes a Domingo 10:00 - 23:00"] },
-            { icon: "📧", titulo: "Email", lineas: ["hola@villanabo.es", "Respondemos en menos de 24h"] },
-          ].map((item) => (
-            <div key={item.titulo} style={{ display: "flex", gap: "1.25rem", marginBottom: "2rem", padding: "1.5rem", background: "#1a1a1a", borderRadius: "12px", border: "1px solid #2d1810" }}>
-              <span style={{ fontSize: "1.8rem" }}>{item.icon}</span>
+          {infoItems.map(({ Icon, titulo, lineas }) => (
+            <div key={titulo} style={{
+              display: "flex",
+              gap: "1rem",
+              marginBottom: "1rem",
+              padding: "1.25rem 1.5rem",
+              background: "var(--bg-elevated)",
+              borderRadius: "var(--r-md)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-sm)",
+            }}>
+              <div style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "var(--r-sm)",
+                background: "rgba(212,165,116,0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}>
+                <Icon size={20} color="var(--gold)" />
+              </div>
               <div>
-                <p style={{ fontWeight: "700", color: "#d4a574", marginBottom: "0.4rem" }}>{item.titulo}</p>
-                {item.lineas.map((l) => <p key={l} style={{ color: "#b0a090", fontSize: "0.95rem" }}>{l}</p>)}
+                <p style={{ fontWeight: 600, color: "var(--text)", marginBottom: "0.25rem" }}>{titulo}</p>
+                {lineas.map((l) => <p key={l} style={{ color: "var(--text-muted)", fontSize: "0.92rem", lineHeight: 1.5 }}>{l}</p>)}
               </div>
             </div>
           ))}
 
           {/* Horarios */}
-          <div style={{ padding: "1.5rem", background: "#1a1a1a", borderRadius: "12px", border: "1px solid #2d1810" }}>
-            <p style={{ fontWeight: "700", color: "#d4a574", marginBottom: "1rem", fontSize: "1rem" }}>⏰ Horarios</p>
-            {[
-              ["Lunes – Jueves", "12:00 – 22:00"],
-              ["Viernes", "12:00 – 02:00 🎉"],
-              ["Sábado", "11:00 – 03:00 🎉"],
-              ["Domingo", "11:00 – 20:00"],
-            ].map(([dia, hora]) => (
-              <div key={dia} style={{ display: "flex", justifyContent: "space-between", padding: "0.5rem 0", borderBottom: "1px solid #222", color: "#b0a090", fontSize: "0.9rem" }}>
-                <span>{dia}</span>
-                <span style={{ color: hora.includes("🎉") ? "#ff6b35" : "#d4a574" }}>{hora}</span>
+          <div style={{
+            padding: "1.5rem",
+            background: "var(--bg-elevated)",
+            borderRadius: "var(--r-md)",
+            border: "1px solid var(--border)",
+            boxShadow: "var(--shadow-sm)",
+            marginTop: "1rem",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1rem" }}>
+              <Clock size={18} color="var(--gold)" />
+              <p style={{ fontWeight: 600, color: "var(--text)" }}>Horarios</p>
+            </div>
+            {horarios.map(([dia, hora]) => (
+              <div key={dia} style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0.55rem 0",
+                borderBottom: "1px solid var(--border)",
+                fontSize: "0.9rem",
+              }}>
+                <span style={{ color: "var(--text-muted)" }}>{dia}</span>
+                <span style={{ color: "var(--gold)", fontWeight: 500 }}>{hora}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Formulario */}
-        <div style={{ background: "#1a1a1a", border: "2px solid #d4a574", borderRadius: "15px", padding: "2.5rem" }}>
+        <div style={{
+          background: "var(--bg-elevated)",
+          border: "1px solid var(--border)",
+          borderRadius: "var(--r-md)",
+          padding: "2.5rem",
+          boxShadow: "var(--shadow-md)",
+        }}>
           {enviado ? (
             <div style={{ textAlign: "center", padding: "3rem 0" }}>
-              <p style={{ fontSize: "3rem", marginBottom: "1rem" }}>✅</p>
-              <h4 style={{ fontSize: "1.5rem", color: "#d4a574", marginBottom: "0.75rem" }}>¡Reserva Recibida!</h4>
-              <p style={{ color: "#b0a090" }}>Te confirmaremos tu mesa por email en menos de 24 horas.</p>
+              <CheckCircle2 size={56} color="var(--gold)" style={{ marginBottom: "1.25rem" }} />
+              <h4 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.5rem",
+                color: "var(--text)",
+                marginBottom: "0.75rem",
+              }}>
+                ¡Reserva Recibida!
+              </h4>
+              <p style={{ color: "var(--text-muted)" }}>Te confirmaremos tu mesa por email en menos de 24 horas.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              <h3 style={{ fontSize: "1.5rem", fontWeight: "800", color: "#d4a574", marginBottom: "0.5rem" }}>Reserva tu Mesa</h3>
+              <h3 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.5rem",
+                fontWeight: 700,
+                color: "var(--text)",
+                marginBottom: "0.25rem",
+              }}>
+                Reserva tu Mesa
+              </h3>
 
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
-                  <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Nombre</label>
+                  <label style={labelStyle}>Nombre</label>
                   <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required style={inputStyle} />
                 </div>
                 <div>
-                  <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Teléfono</label>
+                  <label style={labelStyle}>Teléfono</label>
                   <input name="telefono" value={form.telefono} onChange={handleChange} placeholder="+34 600 000 000" style={inputStyle} />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Email</label>
+                <label style={labelStyle}>Email</label>
                 <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" required style={inputStyle} />
               </div>
 
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
-                  <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Fecha</label>
+                  <label style={labelStyle}>Fecha</label>
                   <input name="fecha" type="date" value={form.fecha} onChange={handleChange} required style={inputStyle} />
                 </div>
                 <div>
-                  <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Personas</label>
+                  <label style={labelStyle}>Personas</label>
                   <select name="personas" value={form.personas} onChange={handleChange} style={inputStyle}>
                     {["1","2","3","4","5","6","7","8","9","10+"].map((n) => <option key={n} value={n}>{n} persona{n !== "1" ? "s" : ""}</option>)}
                   </select>
@@ -122,21 +226,26 @@ export default function ContactoPage() {
               </div>
 
               <div>
-                <label style={{ display: "block", color: "#b0a090", fontSize: "0.9rem", marginBottom: "0.4rem" }}>Mensaje o petición especial</label>
+                <label style={labelStyle}>Mensaje o petición especial</label>
                 <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={4} placeholder="¿Alguna alergia, evento especial, preferencia de mesa...?" style={{ ...inputStyle, resize: "vertical" }} />
               </div>
 
               <button type="submit" style={{
-                padding: "1rem",
-                background: "linear-gradient(135deg, #d4a574 0%, #ff6b35 100%)",
-                color: "#fff",
+                padding: "0.95rem",
+                background: "var(--gold)",
+                color: "var(--bg)",
                 border: "none",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                fontWeight: "700",
+                borderRadius: "var(--r-sm)",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                fontFamily: "var(--font-sans)",
                 cursor: "pointer",
-                marginTop: "0.5rem"
-              }}>
+                marginTop: "0.5rem",
+                boxShadow: "var(--shadow-gold)",
+                transition: "transform 0.2s, background 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--gold-soft)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "var(--gold)"; }}>
                 Enviar Reserva
               </button>
             </form>

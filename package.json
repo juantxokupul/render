@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lucide-react": "^1.16.0",
     "next": "15.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -17,6 +18,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.1.0",
     "typescript": "^5"
   }
 }

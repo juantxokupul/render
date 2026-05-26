@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { Menu, X, Sparkles, ArrowRight } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -17,10 +18,34 @@ export default function Navbar() {
 
   return (
     <>
-      <header style={{ background: "linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%)", borderBottom: "3px solid #d4a574", position: "sticky", top: 0, zIndex: 100 }}>
-        <nav style={{ maxWidth: "1200px", margin: "0 auto", padding: "1.25rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative" }}>
+      <header style={{
+        background: "rgba(10, 10, 10, 0.85)",
+        backdropFilter: "saturate(140%) blur(12px)",
+        WebkitBackdropFilter: "saturate(140%) blur(12px)",
+        borderBottom: "1px solid var(--border)",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+      }}>
+        <nav style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "1.1rem 2rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          position: "relative",
+        }}>
           <Link href="/" style={{ textDecoration: "none" }} onClick={() => setMenuOpen(false)}>
-            <h1 style={{ fontSize: "1.8rem", fontWeight: "900", background: "linear-gradient(135deg, #d4a574 0%, #e8c4a0 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: 0, whiteSpace: "nowrap" }}>
+            <h1 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.7rem",
+              fontWeight: 800,
+              color: "var(--gold)",
+              margin: 0,
+              whiteSpace: "nowrap",
+              letterSpacing: "-0.01em",
+            }}>
               Villa Nabo
             </h1>
           </Link>
@@ -29,60 +54,88 @@ export default function Navbar() {
             className="nav-hamburger"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menú"
+            aria-expanded={menuOpen}
           >
-            {menuOpen ? "✕" : "☰"}
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
           <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  textDecoration: "none",
-                  color: pathname === href ? "#fff" : "#d4a574",
-                  fontWeight: pathname === href ? "700" : "500",
-                  borderBottom: pathname === href ? "2px solid #d4a574" : "none",
-                  paddingBottom: "2px",
-                }}
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map(({ href, label }) => {
+              const active = pathname === href;
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  style={{
+                    textDecoration: "none",
+                    color: active ? "var(--text)" : "var(--text-muted)",
+                    fontWeight: active ? 600 : 500,
+                    position: "relative",
+                    paddingBottom: "4px",
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  {label}
+                  {active && (
+                    <span style={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      height: "2px",
+                      background: "var(--gold)",
+                      borderRadius: "var(--r-pill)",
+                    }} />
+                  )}
+                </Link>
+              );
+            })}
           </div>
         </nav>
       </header>
 
       {pathname !== "/inauguracion" && (
-        <div style={{
-          background: "linear-gradient(90deg, #7c1d6f 0%, #c0392b 50%, #e67e22 100%)",
-          padding: "0.85rem 2rem",
-          textAlign: "center",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "1rem",
-          flexWrap: "wrap"
-        }}>
-          <span style={{ fontSize: "1.3rem" }}>🎉</span>
-          <p style={{ margin: 0, fontWeight: "800", fontSize: "0.95rem", color: "#fff", letterSpacing: "0.5px" }}>
-            GRAN FIESTA DE INAUGURACIÓN · <span style={{ color: "#ffe066" }}>Sábado 6 de Junio</span>
-          </p>
-          <Link href="/inauguracion" style={{
-            background: "#fff",
-            color: "#c0392b",
-            padding: "0.35rem 1.1rem",
-            borderRadius: "20px",
-            fontWeight: "700",
-            fontSize: "0.85rem",
-            textDecoration: "none",
-            whiteSpace: "nowrap"
+        <Link href="/inauguracion" style={{ textDecoration: "none", display: "block" }}>
+          <div style={{
+            background: "linear-gradient(90deg, var(--gold) 0%, var(--ember) 100%)",
+            padding: "0.85rem 2rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1.1rem",
+            flexWrap: "wrap",
+            boxShadow: "var(--shadow-ember)",
+            cursor: "pointer",
           }}>
-            Más info →
-          </Link>
-          <span style={{ fontSize: "1.3rem" }}>🎉</span>
-        </div>
+            <Sparkles size={18} color="#0a0a0a" className="pulse-soft" strokeWidth={2.5} />
+            <p style={{
+              margin: 0,
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              color: "#0a0a0a",
+              letterSpacing: "0.03em",
+            }}>
+              GRAN FIESTA DE INAUGURACIÓN · <span style={{ fontWeight: 800 }}>Sábado 6 de Junio</span>
+            </p>
+            <span style={{
+              background: "#0a0a0a",
+              color: "var(--gold)",
+              padding: "0.4rem 1rem",
+              borderRadius: "var(--r-pill)",
+              fontWeight: 700,
+              fontSize: "0.8rem",
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.35rem",
+              whiteSpace: "nowrap",
+            }}>
+              Más info <ArrowRight size={14} />
+            </span>
+          </div>
+        </Link>
       )}
     </>
   );

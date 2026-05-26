@@ -1,11 +1,20 @@
 import Link from "next/link";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
+import { Flame, Salad, UtensilsCrossed, IceCream, Wine, ArrowRight, type LucideIcon } from "lucide-react";
 
-const sections = [
+type Section = {
+  id: string;
+  titulo: string;
+  Icon: LucideIcon;
+  platos: { nombre: string; desc: string; precio: string }[];
+};
+
+const sections: Section[] = [
   {
-    titulo: "🔥 Carnes a la Brasa",
-    color: "#d4a574",
+    id: "carnes",
+    titulo: "Carnes a la Brasa",
+    Icon: Flame,
     platos: [
       { nombre: "Entrecot de Vaca", desc: "400g de carne madurada, brasa de leña", precio: "28€" },
       { nombre: "Costillas BBQ", desc: "Costillar entero con salsa de la casa", precio: "24€" },
@@ -15,8 +24,9 @@ const sections = [
     ],
   },
   {
-    titulo: "🥗 Entrantes",
-    color: "#a3d977",
+    id: "entrantes",
+    titulo: "Entrantes",
+    Icon: Salad,
     platos: [
       { nombre: "Tabla de Embutidos", desc: "Selección de ibéricos de la región", precio: "14€" },
       { nombre: "Pan de Brasa", desc: "Hogaza artesana con mantequilla de hierbas", precio: "5€" },
@@ -25,8 +35,9 @@ const sections = [
     ],
   },
   {
-    titulo: "🍟 Guarniciones",
-    color: "#f5c842",
+    id: "guarniciones",
+    titulo: "Guarniciones",
+    Icon: UtensilsCrossed,
     platos: [
       { nombre: "Patatas Bravas", desc: "Con alioli y salsa brava", precio: "6€" },
       { nombre: "Verduras a la Brasa", desc: "Calabacín, pimiento y berenjena", precio: "7€" },
@@ -35,8 +46,9 @@ const sections = [
     ],
   },
   {
-    titulo: "🍮 Postres",
-    color: "#ff8fa3",
+    id: "postres",
+    titulo: "Postres",
+    Icon: IceCream,
     platos: [
       { nombre: "Coulant de Chocolate", desc: "Con helado de vainilla artesano", precio: "7€" },
       { nombre: "Tarta de Queso", desc: "Al horno, estilo vasco", precio: "6€" },
@@ -45,8 +57,9 @@ const sections = [
     ],
   },
   {
-    titulo: "🍹 Cocktails & Bebidas",
-    color: "#ff6b35",
+    id: "cocktails",
+    titulo: "Cocktails & Bebidas",
+    Icon: Wine,
     platos: [
       { nombre: "Mojito de la Casa", desc: "Ron blanco, lima, menta y azúcar moreno", precio: "9€" },
       { nombre: "Sangría Villa Nabo", desc: "Receta propia con frutas de temporada", precio: "8€" },
@@ -59,47 +72,117 @@ const sections = [
 
 export default function MenuPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0f0f", color: "#fff", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
 
       {/* Hero */}
-      <section style={{ background: "linear-gradient(135deg, #2d1810 0%, #1a1a1a 100%)", padding: "5rem 2rem", textAlign: "center", borderBottom: "3px solid #d4a574" }}>
-        <h2 style={{ fontSize: "3rem", fontWeight: "900", color: "#d4a574", marginBottom: "1rem" }}>Nuestra Carta</h2>
-        <p style={{ fontSize: "1.1rem", color: "#b0a090", maxWidth: "600px", margin: "0 auto" }}>
+      <section style={{
+        background: "var(--bg-elevated)",
+        padding: "5rem 2rem 4rem",
+        textAlign: "center",
+        borderBottom: "1px solid var(--border)",
+      }}>
+        <p style={{
+          fontSize: "0.8rem",
+          fontWeight: 600,
+          color: "var(--ember)",
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          marginBottom: "1rem",
+        }}>
+          La carta
+        </p>
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(2.25rem, 5vw, 3rem)",
+          fontWeight: 700,
+          color: "var(--text)",
+          marginBottom: "1rem",
+        }}>
+          Nuestra Carta
+        </h2>
+        <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "600px", margin: "0 auto", lineHeight: 1.7 }}>
           Ingredientes frescos, técnicas artesanales y el sabor único del fuego. Todo preparado con cariño para ti.
         </p>
       </section>
 
+      {/* Anchor nav */}
+      <nav style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        background: "rgba(10, 10, 10, 0.85)",
+        backdropFilter: "saturate(140%) blur(12px)",
+        WebkitBackdropFilter: "saturate(140%) blur(12px)",
+        borderBottom: "1px solid var(--border)",
+        padding: "0.85rem 1rem",
+      }}>
+        <div style={{
+          maxWidth: "1000px",
+          margin: "0 auto",
+          display: "flex",
+          gap: "0.5rem",
+          overflowX: "auto",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}>
+          {sections.map(({ id, titulo, Icon }) => (
+            <a key={id} href={`#${id}`} style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              padding: "0.45rem 0.95rem",
+              border: "1px solid var(--border-strong)",
+              borderRadius: "var(--r-pill)",
+              color: "var(--text-muted)",
+              fontSize: "0.85rem",
+              fontWeight: 500,
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              transition: "color 0.2s, border-color 0.2s",
+            }}>
+              <Icon size={14} />
+              {titulo}
+            </a>
+          ))}
+        </div>
+      </nav>
+
       {/* Menu Sections */}
-      <section style={{ maxWidth: "1000px", margin: "0 auto", padding: "4rem 2rem" }}>
-        {sections.map((section) => (
-          <div key={section.titulo} id={section.titulo.includes("Cocktails") ? "cocktails" : undefined} style={{ marginBottom: "4rem" }}>
-            <h3 style={{ fontSize: "1.8rem", fontWeight: "800", color: section.color, marginBottom: "1.5rem", borderBottom: `2px solid ${section.color}`, paddingBottom: "0.75rem" }}>
-              {section.titulo}
-            </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-              {section.platos.map((plato, i) => (
+      <section style={{ maxWidth: "900px", margin: "0 auto", padding: "4rem 2rem" }}>
+        {sections.map(({ id, titulo, Icon, platos }) => (
+          <div key={id} id={id} style={{ marginBottom: "4.5rem", scrollMarginTop: "5rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem", paddingBottom: "0.75rem", borderBottom: "1px solid var(--border)" }}>
+              <Icon size={24} color="var(--gold)" />
+              <h3 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.75rem",
+                fontWeight: 700,
+                color: "var(--text)",
+              }}>
+                {titulo}
+              </h3>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {platos.map((plato) => (
                 <div key={plato.nombre} style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: "1.25rem 0",
-                  borderBottom: "1px solid #222",
-                  background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)"
+                  borderBottom: "1px solid var(--border)",
+                  gap: "1rem",
                 }}>
                   <div>
-                    <p style={{ fontWeight: "700", color: "#f0e6d3", fontSize: "1.05rem", marginBottom: "0.25rem" }}>{plato.nombre}</p>
-                    <p style={{ color: "#7a6a5a", fontSize: "0.9rem" }}>{plato.desc}</p>
+                    <p style={{ fontWeight: 600, color: "var(--text)", fontSize: "1.05rem", marginBottom: "0.25rem" }}>{plato.nombre}</p>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.92rem" }}>{plato.desc}</p>
                   </div>
                   <span style={{
-                    fontSize: "1.1rem",
-                    fontWeight: "800",
-                    color: section.color,
-                    background: `${section.color}18`,
-                    padding: "0.35rem 0.9rem",
-                    borderRadius: "20px",
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    color: "var(--gold)",
                     whiteSpace: "nowrap",
-                    marginLeft: "1rem"
+                    fontFamily: "var(--font-display)",
                   }}>
                     {plato.precio}
                   </span>
@@ -111,20 +194,31 @@ export default function MenuPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "linear-gradient(135deg, #2d1810 0%, #3d1a0a 100%)", padding: "4rem 2rem", textAlign: "center" }}>
-        <h3 style={{ fontSize: "1.8rem", fontWeight: "800", color: "#d4a574", marginBottom: "0.75rem" }}>¿Listo para pedir tu mesa?</h3>
-        <p style={{ color: "#b0a090", marginBottom: "2rem" }}>Reserva ahora y asegura tu experiencia en Villa Nabo</p>
-        <Link href="/contacto" style={{
-          display: "inline-block",
-          padding: "1rem 2.5rem",
-          background: "linear-gradient(135deg, #d4a574 0%, #ff6b35 100%)",
-          color: "#fff",
-          borderRadius: "8px",
-          textDecoration: "none",
-          fontWeight: "700",
-          fontSize: "1rem"
+      <section style={{ background: "var(--bg-elevated)", padding: "5rem 2rem", textAlign: "center", borderTop: "1px solid var(--border)" }}>
+        <h3 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "1.75rem",
+          fontWeight: 700,
+          color: "var(--text)",
+          marginBottom: "0.75rem",
         }}>
-          Reservar Mesa
+          ¿Listo para reservar?
+        </h3>
+        <p style={{ color: "var(--text-muted)", marginBottom: "2rem" }}>Reserva ahora y asegura tu experiencia en Villa Nabo</p>
+        <Link href="/contacto" style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          padding: "0.95rem 2rem",
+          background: "var(--gold)",
+          color: "var(--bg)",
+          borderRadius: "var(--r-sm)",
+          textDecoration: "none",
+          fontWeight: 600,
+          fontSize: "0.95rem",
+          boxShadow: "var(--shadow-gold)",
+        }}>
+          Reservar Mesa <ArrowRight size={16} />
         </Link>
       </section>
 

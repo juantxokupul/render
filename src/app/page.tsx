@@ -1,90 +1,234 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
+import { Flame, Check, Music, Wine, Sunset, Users, Clock, ArrowRight } from "lucide-react";
+
+const carnes = ["Costillas BBQ", "Asado Argentino", "Carne Wagyu", "Pinchos Mixtos", "Carnes de Temporada"];
+
+const atardeceres = [
+  { Icon: Music, titulo: "Música en Vivo", desc: "DJ's y bandas en vivo", img: "https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
+  { Icon: Wine, titulo: "Cocktails Premium", desc: "Bebidas artesanales", img: "https://images.pexels.com/photos/36366519/pexels-photo-36366519.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/menu#cocktails" },
+  { Icon: Sunset, titulo: "Atardecer Mágico", desc: "Vistas incomparables", img: "https://images.pexels.com/photos/36697295/pexels-photo-36697295.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
+  { Icon: Users, titulo: "Ambiente Joven", desc: "Diversión garantizada", img: "https://images.pexels.com/photos/13902051/pexels-photo-13902051.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
+];
 
 export default function Home() {
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0f0f", color: "#fff", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <section style={{
-        background: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect fill=%22%23d4a574%22 opacity=%220.1%22 width=%221200%22 height=%22600%22/></svg>')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: "8rem 2rem",
-        textAlign: "center",
-        borderBottom: "3px solid #d4a574"
-      }}>
-        <h2 style={{ fontSize: "4rem", fontWeight: "900", marginBottom: "1rem", letterSpacing: "-2px", color: "#f5e6d3" }}>
-          Villa Nabo
-        </h2>
-        <p style={{ fontSize: "1.5rem", color: "#d4a574", marginBottom: "1.5rem", fontWeight: "500" }}>
-          🔥 Carnes a la Brasa Artesanales 🔥
-        </p>
-        <p style={{ fontSize: "1.1rem", color: "#c9a876", maxWidth: "700px", margin: "0 auto 2.5rem", lineHeight: "1.6" }}>
-          Un refugio rural donde la tradición se encuentra con la pasión. Disfruta de nuestras mejores carnes a la brasa en un ambiente acogedor y auténtico.
-        </p>
+      {/* Hero */}
+      <section style={{ position: "relative", isolation: "isolate", overflow: "hidden" }}>
+        <Image
+          src="https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover", zIndex: -2 }}
+        />
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.7) 60%, rgba(10,10,10,0.95) 100%)",
+          zIndex: -1,
+        }} />
+        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "9rem 2rem 7rem", textAlign: "center" }}>
+          <span style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.4rem 0.9rem",
+            border: "1px solid var(--border-strong)",
+            borderRadius: "var(--r-pill)",
+            color: "var(--gold)",
+            fontSize: "0.8rem",
+            fontWeight: 500,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            marginBottom: "2rem",
+            background: "rgba(212,165,116,0.06)",
+          }}>
+            <Flame size={14} /> Carnes a la brasa · Burgos
+          </span>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(3rem, 8vw, 5rem)",
+            fontWeight: 800,
+            marginBottom: "1.25rem",
+            color: "var(--text)",
+            letterSpacing: "-0.02em",
+          }}>
+            Villa Nabo
+          </h2>
+          <p style={{
+            fontSize: "1.15rem",
+            color: "var(--text-muted)",
+            maxWidth: "620px",
+            margin: "0 auto 2.5rem",
+            lineHeight: 1.7,
+          }}>
+            Un refugio rural donde la tradición de la brasa se encuentra con noches de música, cocktails y atardeceres inolvidables.
+          </p>
+          <div className="cta-buttons">
+            <Link href="/contacto" style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.95rem 2rem",
+              background: "var(--gold)",
+              color: "var(--bg)",
+              borderRadius: "var(--r-sm)",
+              textDecoration: "none",
+              fontWeight: 600,
+              fontSize: "0.95rem",
+              boxShadow: "var(--shadow-gold)",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}>
+              Reservar Mesa <ArrowRight size={16} />
+            </Link>
+            <Link href="/menu" style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.95rem 2rem",
+              background: "transparent",
+              color: "var(--text)",
+              border: "1px solid var(--border-strong)",
+              borderRadius: "var(--r-sm)",
+              textDecoration: "none",
+              fontWeight: 600,
+              fontSize: "0.95rem",
+              transition: "border-color 0.2s, color 0.2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-strong)"; e.currentTarget.style.color = "var(--text)"; }}>
+              Ver la carta
+            </Link>
+          </div>
+        </div>
       </section>
 
-      {/* Main Content */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem" }}>
-        <div className="grid-2col" style={{ gap: "4rem", alignItems: "center", marginBottom: "6rem" }}>
+      {/* Carnes */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "6rem 2rem 4rem" }}>
+        <div className="grid-2col" style={{ gap: "4rem", alignItems: "center" }}>
           <div>
-            <h3 style={{ fontSize: "2.5rem", fontWeight: "800", color: "#d4a574", marginBottom: "1.5rem" }}>
+            <p style={{
+              fontSize: "0.8rem",
+              fontWeight: 600,
+              color: "var(--ember)",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              marginBottom: "1rem",
+            }}>
+              La casa
+            </p>
+            <h3 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "2.5rem",
+              fontWeight: 700,
+              color: "var(--text)",
+              marginBottom: "1.25rem",
+            }}>
               Nuestras Carnes
             </h3>
-            <p style={{ fontSize: "1.1rem", color: "#b0a090", lineHeight: "1.8", marginBottom: "1.5rem" }}>
+            <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.75, marginBottom: "1.75rem" }}>
               En Villa Nabo preparamos las mejores carnes a la brasa con técnicas tradicionales. Cada pieza es seleccionada cuidadosamente para garantizar la máxima calidad y sabor.
             </p>
             <ul style={{ listStyle: "none", padding: 0 }}>
-              {["Costillas BBQ", "Asado Argentino", "Carne Wagyu", "Pinchos Mixtos", "Carnes de Temporada"].map((item) => (
-                <li key={item} style={{ padding: "0.75rem 0", color: "#c9a876", fontSize: "1rem", borderBottom: "1px solid #333", fontWeight: "500" }}>
-                  ✓ {item}
+              {carnes.map((item) => (
+                <li key={item} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  padding: "0.85rem 0",
+                  color: "var(--text)",
+                  fontSize: "1rem",
+                  borderBottom: "1px solid var(--border)",
+                }}>
+                  <Check size={18} color="var(--gold)" strokeWidth={2.5} />
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
-          <img src="https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Carnes a la brasa" style={{ borderRadius: "15px", border: "3px solid #d4a574", objectFit: "cover", width: "100%", height: "400px" }} />
+          <Image
+            src="https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Carnes a la brasa"
+            width={800}
+            height={520}
+            sizes="(max-width: 768px) 100vw, 600px"
+            style={{
+              borderRadius: "var(--r-md)",
+              objectFit: "cover",
+              width: "100%",
+              height: "520px",
+              boxShadow: "var(--shadow-lg)",
+            }}
+          />
         </div>
+      </section>
 
-        {/* Fiestas Section */}
+      {/* Atardeceres */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "4rem 2rem" }}>
         <div className="section-inner-padded" style={{
-          background: "linear-gradient(135deg, #3d1a0a 0%, #2d1810 100%)",
-          padding: "4rem",
-          borderRadius: "15px",
-          border: "2px solid #ff6b35",
-          marginTop: "4rem"
+          background: "var(--bg-elevated)",
+          padding: "4.5rem 3rem",
+          borderRadius: "var(--r-md)",
+          boxShadow: "var(--shadow-md)",
         }}>
-          <h3 style={{ fontSize: "2.5rem", fontWeight: "800", color: "#ff6b35", marginBottom: "1.5rem", textAlign: "center" }}>
-            🎉 Atardeceres Inolvidables 🎉
-          </h3>
-          <p style={{ fontSize: "1.1rem", color: "#f5a96f", lineHeight: "1.8", textAlign: "center", marginBottom: "2rem" }}>
-            Cuando cae el sol en Villa Nabo, la magia comienza. Nuestros atardeceres se transforman en fiestas vibrantes llenas de energía, música en vivo, deliciosos cocktails y gente joven lista para pasarlo bien.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem", marginTop: "2rem" }}>
-            {[
-              { icon: "🎵", titulo: "Música en Vivo", desc: "DJ's y bandas en vivo", img: "https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
-              { icon: "🍹", titulo: "Cocktails Premium", desc: "Bebidas artesanales", img: "https://images.pexels.com/photos/36366519/pexels-photo-36366519.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/menu#cocktails" },
-              { icon: "🌅", titulo: "Atardecer Mágico", desc: "Vistas incomparables", img: "https://images.pexels.com/photos/36697295/pexels-photo-36697295.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
-              { icon: "👥", titulo: "Ambiente Jóven", desc: "Diversión garantizada", img: "https://images.pexels.com/photos/13902051/pexels-photo-13902051.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" }
-            ].map((item) => (
-              <Link key={item.titulo} href={item.link} style={{ textDecoration: "none" }}>
-              <div style={{
-                padding: "1.5rem",
-                background: "rgba(255, 107, 53, 0.1)",
-                borderRadius: "10px",
-                border: "1px solid #ff6b35",
-                textAlign: "center",
-                transition: "all 0.3s ease",
-                cursor: "pointer"
-              }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
-                <img src={item.img} alt={item.titulo} style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "8px", marginBottom: "1rem" }} />
-                <p style={{ fontSize: "1.1rem", fontWeight: "700", color: "#ff6b35", marginBottom: "0.5rem" }}>{item.titulo}</p>
-                <p style={{ color: "#f5a96f", fontSize: "0.9rem" }}>{item.desc}</p>
-              </div>
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 3rem" }}>
+            <p style={{
+              fontSize: "0.8rem",
+              fontWeight: 600,
+              color: "var(--ember)",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              marginBottom: "1rem",
+            }}>
+              Después de las 19:00
+            </p>
+            <h3 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "2.5rem",
+              fontWeight: 700,
+              color: "var(--text)",
+              marginBottom: "1rem",
+            }}>
+              Atardeceres Inolvidables
+            </h3>
+            <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
+              Cuando cae el sol en Villa Nabo, la magia comienza. Música en vivo, cocktails y gente joven lista para pasarlo bien.
+            </p>
+          </div>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "1.25rem",
+          }}>
+            {atardeceres.map(({ Icon, titulo, desc, img, link }) => (
+              <Link key={titulo} href={link} style={{ textDecoration: "none" }}>
+                <div className="card-lift" style={{
+                  background: "var(--bg-elevated-2)",
+                  borderRadius: "var(--r-md)",
+                  overflow: "hidden",
+                  boxShadow: "var(--shadow-sm)",
+                  border: "1px solid var(--border)",
+                }}>
+                  <div style={{ position: "relative", width: "100%", height: "180px" }}>
+                    <Image src={img} alt={titulo} fill sizes="(max-width: 768px) 100vw, 250px" style={{ objectFit: "cover" }} />
+                  </div>
+                  <div style={{ padding: "1.25rem 1.25rem 1.5rem" }}>
+                    <Icon size={20} color="var(--gold)" style={{ marginBottom: "0.6rem" }} />
+                    <p style={{ fontSize: "1.05rem", fontWeight: 600, color: "var(--text)", marginBottom: "0.35rem" }}>{titulo}</p>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{desc}</p>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
@@ -92,65 +236,88 @@ export default function Home() {
       </section>
 
       {/* Horarios */}
-      <section style={{ background: "#1a1a1a", padding: "4rem 2rem", marginTop: "4rem" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", textAlign: "center" }}>
-          <h3 style={{ fontSize: "2rem", fontWeight: "800", color: "#d4a574", marginBottom: "2rem" }}>
-            Horarios
-          </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
-            <div>
-              <p style={{ fontSize: "1.2rem", fontWeight: "700", color: "#d4a574", marginBottom: "0.5rem" }}>Servicio de Día</p>
-              <p style={{ color: "#b0a090" }}>12:00 - 18:00</p>
-            </div>
-            <div>
-              <p style={{ fontSize: "1.2rem", fontWeight: "700", color: "#d4a574", marginBottom: "0.5rem" }}>Servicio de Noche</p>
-              <p style={{ color: "#b0a090" }}>19:00 - 02:00</p>
-            </div>
-            <div>
-              <p style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ff6b35", marginBottom: "0.5rem" }}>Fiestas & Eventos</p>
-              <p style={{ color: "#f5a96f" }}>Viernes a Domingo</p>
-            </div>
+      <section style={{ padding: "5rem 2rem" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <Clock size={28} color="var(--gold)" style={{ marginBottom: "1rem" }} />
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 700, color: "var(--text)" }}>
+              Horarios
+            </h3>
+          </div>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "1.25rem",
+          }}>
+            {[
+              { titulo: "Servicio de Día", horas: "12:00 – 18:00", accent: false },
+              { titulo: "Servicio de Noche", horas: "19:00 – 02:00", accent: false },
+              { titulo: "Fiestas & Eventos", horas: "Viernes a Domingo", accent: true },
+            ].map((h) => (
+              <div key={h.titulo} style={{
+                background: "var(--bg-elevated)",
+                padding: "1.75rem",
+                borderRadius: "var(--r-md)",
+                textAlign: "center",
+                border: h.accent ? "1px solid rgba(224,120,86,0.35)" : "1px solid var(--border)",
+                boxShadow: "var(--shadow-sm)",
+              }}>
+                <p style={{
+                  fontSize: "0.95rem",
+                  fontWeight: 600,
+                  color: h.accent ? "var(--ember)" : "var(--gold)",
+                  marginBottom: "0.5rem",
+                }}>
+                  {h.titulo}
+                </p>
+                <p style={{ color: "var(--text-muted)", fontSize: "1rem" }}>{h.horas}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section style={{
-        background: "linear-gradient(135deg, #d4a574 0%, #ff6b35 100%)",
-        padding: "4rem 2rem",
-        textAlign: "center"
-      }}>
-        <h3 style={{ fontSize: "2.2rem", fontWeight: "800", color: "#fff", marginBottom: "1rem" }}>
+      <section style={{ padding: "5rem 2rem", textAlign: "center", background: "var(--bg-elevated)", borderTop: "1px solid var(--border)" }}>
+        <h3 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "2.25rem",
+          fontWeight: 700,
+          color: "var(--text)",
+          marginBottom: "1rem",
+        }}>
           ¿Listo para disfrutar?
         </h3>
-        <p style={{ fontSize: "1.1rem", color: "#f5e6d3", marginBottom: "2rem", maxWidth: "600px", margin: "0 auto 2rem" }}>
-          Reserva tu mesa o ven a celebrar nuestras increíbles fiestas nocturnas
+        <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", marginBottom: "2.25rem", maxWidth: "560px", margin: "0 auto 2.25rem" }}>
+          Reserva tu mesa o ven a celebrar nuestras noches inolvidables
         </p>
         <div className="cta-buttons">
           <Link href="/contacto" style={{
-            display: "inline-block",
-            padding: "1rem 2.5rem",
-            fontSize: "1rem",
-            fontWeight: "700",
-            background: "#fff",
-            color: "#d4a574",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            textDecoration: "none"
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.95rem 2rem",
+            background: "var(--gold)",
+            color: "var(--bg)",
+            borderRadius: "var(--r-sm)",
+            textDecoration: "none",
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            boxShadow: "var(--shadow-gold)",
           }}>
-            Reservar Mesa
+            Reservar Mesa <ArrowRight size={16} />
           </Link>
           <Link href="/contacto" style={{
-            display: "inline-block",
-            padding: "1rem 2.5rem",
-            fontSize: "1rem",
-            fontWeight: "700",
+            display: "inline-flex",
+            alignItems: "center",
+            padding: "0.95rem 2rem",
             background: "transparent",
-            color: "#fff",
-            border: "2px solid #fff",
-            borderRadius: "8px",
-            textDecoration: "none"
+            color: "var(--text)",
+            border: "1px solid var(--border-strong)",
+            borderRadius: "var(--r-sm)",
+            textDecoration: "none",
+            fontWeight: 600,
+            fontSize: "0.95rem",
           }}>
             Contáctanos
           </Link>
