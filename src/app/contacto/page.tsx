@@ -164,38 +164,31 @@ export default function ContactoPage() {
         </div>
 
         {/* Formulario */}
-        <div style={{
-          background: "var(--bg-elevated)",
-          border: "1px solid var(--border)",
-          borderRadius: "var(--r-md)",
-          padding: "2.5rem",
-          boxShadow: "var(--shadow-md)",
-        }}>
+        <div>
+          <h3 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.5rem",
+            fontWeight: 700,
+            color: "var(--text)",
+            marginBottom: "1.5rem",
+          }}>
+            {enviado ? "¡Reserva Recibida!" : "Reserva tu Mesa"}
+          </h3>
+
+          <div style={{
+            background: "var(--bg-elevated)",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--r-md)",
+            padding: "2.5rem",
+            boxShadow: "var(--shadow-md)",
+          }}>
           {enviado ? (
-            <div style={{ textAlign: "center", padding: "3rem 0" }}>
+            <div style={{ textAlign: "center", padding: "2rem 0" }}>
               <CheckCircle2 size={56} color="var(--gold)" style={{ marginBottom: "1.25rem" }} />
-              <h4 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "1.5rem",
-                color: "var(--text)",
-                marginBottom: "0.75rem",
-              }}>
-                ¡Reserva Recibida!
-              </h4>
               <p style={{ color: "var(--text-muted)" }}>Te confirmaremos tu mesa por email en menos de 24 horas.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              <h3 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "1.5rem",
-                fontWeight: 700,
-                color: "var(--text)",
-                marginBottom: "0.25rem",
-              }}>
-                Reserva tu Mesa
-              </h3>
-
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
                   <label style={labelStyle}>Nombre</label>
@@ -250,6 +243,7 @@ export default function ContactoPage() {
               </button>
             </form>
           )}
+          </div>
         </div>
       </section>
 
