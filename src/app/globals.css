@@ -135,6 +135,47 @@ select:focus-visible {
   animation: pulse-soft 2s ease-in-out infinite;
 }
 
+@keyframes banner-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.banner-inauguracion {
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0%,
+    var(--ember) 25%,
+    var(--gold-soft) 50%,
+    var(--ember) 75%,
+    var(--gold) 100%
+  );
+  background-size: 200% 100%;
+  animation: banner-shimmer 9s linear infinite;
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.banner-inauguracion:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 16px 44px rgba(224, 120, 86, 0.32);
+}
+
+@keyframes arrow-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+.banner-arrow {
+  animation: arrow-nudge 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-soft,
+  .banner-inauguracion,
+  .banner-arrow {
+    animation: none;
+  }
+}
+
 @media (max-width: 768px) {
   .grid-2col,
   .grid-2col-wide,

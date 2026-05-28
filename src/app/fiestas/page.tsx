@@ -10,7 +10,7 @@ const eventos = [
     nombre: "Sunset Sessions",
     desc: "Música electrónica suave mientras el sol se pone. Cocktails de bienvenida y pinchos.",
     hora: "19:00 – 02:00",
-    img: "https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=800",
+    img: "/images/4218028.jpg",
     tipo: "Electrónica & Chill",
   },
   {
@@ -18,7 +18,7 @@ const eventos = [
     nombre: "Fuego & Ritmo",
     hora: "20:00 – 03:00",
     desc: "La gran noche de Villa Nabo. DJ en vivo, barra libre de cocktails y la mejor carne a la brasa.",
-    img: "https://images.pexels.com/photos/36697295/pexels-photo-36697295.jpeg?auto=compress&cs=tinysrgb&w=800",
+    img: "/images/36697295.jpg",
     tipo: "DJ + Open Bar",
   },
   {
@@ -26,18 +26,18 @@ const eventos = [
     nombre: "Brunch & Brasa",
     hora: "12:00 – 18:00",
     desc: "Brunch especial con cortes selectos, música en vivo acústica y el mejor ambiente para despedir el fin de semana.",
-    img: "https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=800",
+    img: "/images/5374014.jpg",
     tipo: "Música Acústica",
   },
 ];
 
 const galeria = [
-  "https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/36366519/pexels-photo-36366519.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/36697295/pexels-photo-36697295.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/13902051/pexels-photo-13902051.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "https://images.pexels.com/photos/29093620/pexels-photo-29093620.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "/images/4218028.jpg",
+  "/images/36366519.jpg",
+  "/images/36697295.jpg",
+  "/images/13902051.jpg",
+  "/images/5374014.jpg",
+  "/images/29093620.jpg",
 ];
 
 export default function FiestasPage() {
@@ -48,7 +48,7 @@ export default function FiestasPage() {
       {/* Hero */}
       <section style={{ position: "relative", isolation: "isolate", overflow: "hidden" }}>
         <Image
-          src="https://images.pexels.com/photos/13902051/pexels-photo-13902051.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          src="/images/13902051.jpg"
           alt=""
           fill
           priority

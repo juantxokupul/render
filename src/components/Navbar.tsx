@@ -97,8 +97,7 @@ export default function Navbar() {
 
       {pathname !== "/inauguracion" && (
         <Link href="/inauguracion" style={{ textDecoration: "none", display: "block" }}>
-          <div style={{
-            background: "linear-gradient(90deg, var(--gold) 0%, var(--ember) 100%)",
+          <div className="banner-inauguracion" style={{
             padding: "0.85rem 2rem",
             display: "flex",
             alignItems: "center",
@@ -133,7 +132,7 @@ export default function Navbar() {
               gap: "0.35rem",
               whiteSpace: "nowrap",
             }}>
-              Más info <ArrowRight size={14} />
+              Más info <ArrowRight size={14} className="banner-arrow" />
             </span>
           </div>
         </Link>

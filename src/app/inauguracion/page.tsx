@@ -32,7 +32,7 @@ export default function InauguracionPage() {
       {/* Hero */}
       <section style={{ position: "relative", isolation: "isolate", overflow: "hidden" }}>
         <Image
-          src="https://images.pexels.com/photos/36697295/pexels-photo-36697295.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          src="/images/36697295.jpg"
           alt=""
           fill
           priority
@@ -259,7 +259,7 @@ export default function InauguracionPage() {
       <section className="grid-2col" style={{ maxWidth: "1100px", margin: "0 auto", padding: "5rem 2rem", gap: "4rem", alignItems: "center" }}>
         <div style={{ position: "relative", width: "100%", height: "420px", borderRadius: "var(--r-md)", overflow: "hidden", boxShadow: "var(--shadow-lg)" }}>
           <Image
-            src="https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=900"
+            src="/images/4218028.jpg"
             alt="Fiesta de inauguración"
             fill
             sizes="(max-width: 768px) 100vw, 550px"

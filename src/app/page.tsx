@@ -9,10 +9,10 @@ import { Flame, Check, Music, Wine, Sunset, Users, Clock, ArrowRight } from "luc
 const carnes = ["Costillas BBQ", "Asado Argentino", "Carne Wagyu", "Pinchos Mixtos", "Carnes de Temporada"];
 
 const atardeceres = [
-  { Icon: Music, titulo: "Música en Vivo", desc: "DJ's y bandas en vivo", img: "https://images.pexels.com/photos/4218028/pexels-photo-4218028.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
-  { Icon: Wine, titulo: "Cocktails Premium", desc: "Bebidas artesanales", img: "https://images.pexels.com/photos/36366519/pexels-photo-36366519.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/menu#cocktails" },
-  { Icon: Sunset, titulo: "Atardecer Mágico", desc: "Vistas incomparables", img: "https://images.pexels.com/photos/36697295/pexels-photo-36697295.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
-  { Icon: Users, titulo: "Ambiente Joven", desc: "Diversión garantizada", img: "https://images.pexels.com/photos/13902051/pexels-photo-13902051.jpeg?auto=compress&cs=tinysrgb&w=400", link: "/fiestas" },
+  { Icon: Music, titulo: "Música en Vivo", desc: "DJ's y bandas en vivo", img: "/images/4218028.jpg", link: "/fiestas" },
+  { Icon: Wine, titulo: "Cocktails Premium", desc: "Bebidas artesanales", img: "/images/36366519.jpg", link: "/menu#cocktails" },
+  { Icon: Sunset, titulo: "Atardecer Mágico", desc: "Vistas incomparables", img: "/images/36697295.jpg", link: "/fiestas" },
+  { Icon: Users, titulo: "Ambiente Joven", desc: "Diversión garantizada", img: "/images/13902051.jpg", link: "/fiestas" },
 ];
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
       {/* Hero */}
       <section style={{ position: "relative", isolation: "isolate", overflow: "hidden" }}>
         <Image
-          src="https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          src="/images/5374014.jpg"
           alt=""
           fill
           priority
@@ -161,7 +161,7 @@ export default function Home() {
             </ul>
           </div>
           <Image
-            src="https://images.pexels.com/photos/5374014/pexels-photo-5374014.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="/images/5374014.jpg"
             alt="Carnes a la brasa"
             width={800}
             height={520}

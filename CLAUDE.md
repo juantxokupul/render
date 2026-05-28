@@ -40,7 +40,7 @@ Each route is a single `page.tsx` under `src/app/`:
 When adding layout, prefer one of the existing grid utility classes over a new inline `grid-template-columns` — otherwise the mobile breakpoint won't collapse it.
 
 ### Images
-All imagery is remote (Pexels). `next.config.js` whitelists `images.pexels.com` under `images.remotePatterns`. Use `next/image` `<Image />` with explicit `width`/`height` and `sizes` — `<img>` triggers the `@next/next/no-img-element` lint rule.
+All imagery is local under `public/images/` (filenames are the original Pexels photo IDs, e.g. `/images/4218028.jpg`). Use `next/image` `<Image />` with explicit `width`/`height` and `sizes` — `<img>` triggers the `@next/next/no-img-element` lint rule.
 
 ### Path alias
 `tsconfig.json` maps `@/*` → `./*` (repo root). Existing imports use the form `@/src/components/Navbar` (note the `src/` segment is part of the import path, not stripped).
