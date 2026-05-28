@@ -52,7 +52,7 @@ export default function Home() {
             marginBottom: "2rem",
             background: "rgba(212,165,116,0.06)",
           }}>
-            <Flame size={14} /> Carnes a la brasa · Burgos
+            <Flame size={14} /> Carnes a la brasa · Arauzo de Torre
           </span>
           <h2 style={{
             fontFamily: "var(--font-display)",

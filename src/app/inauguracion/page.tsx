@@ -77,7 +77,7 @@ export default function InauguracionPage() {
             Sábado 6 de Junio · Villa Nabo abre sus puertas
           </p>
           <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "620px", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-            Una noche única para celebrar el nacimiento de Villa Nabo. Únete a nosotros en una velada llena de carnes a la brasa, música, cocktails y mucha diversión bajo el cielo de Burgos.
+            Una noche única para celebrar el nacimiento de Villa Nabo. Únete a nosotros en una velada llena de carnes a la brasa, música, cocktails y mucha diversión bajo el cielo de Arauzo de Torre
           </p>
           <div className="cta-buttons">
             <Link href="/contacto" style={{
