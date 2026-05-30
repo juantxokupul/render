@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Prefer AVIF (smaller than WebP on supporting browsers); Next falls back
+    // to WebP automatically. Slower to encode, but the long cache below means
+    // that cost is paid once.
+    formats: ["image/avif", "image/webp"],
     // The marketing photos never change, so let the optimizer's output be
     // cached aggressively (browser + any CDN in front of /_next/image). This is
     // what turns the slow first on-demand optimization into a one-time cost
