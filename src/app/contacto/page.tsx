@@ -6,8 +6,10 @@ import Footer from "@/src/components/Footer";
 import { MapPin, Phone, Mail, Clock, CheckCircle2, type LucideIcon } from "lucide-react";
 
 // Web3Forms access key. Get yours free at https://web3forms.com (enter hola@villanabo.es).
-// Safe to expose in client code — it only allows sending to the address it's registered to.
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "YOUR_ACCESS_KEY_HERE";
+// Safe to expose in client code — it only allows sending to the address it's registered to,
+// and it ships in the client bundle regardless. Hardcoded so it does not depend on the
+// host's build-time env vars; an env var, if set, still overrides it.
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "799e244c-5ae7-437e-8ea0-3e0693a06dff";
 
 type InfoItem = { Icon: LucideIcon; titulo: string; lineas: string[] };
 
@@ -29,15 +31,50 @@ export default function ContactoPage() {
   const [enviado, setEnviado] = useState(false);
   const [enviando, setEnviando] = useState(false);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  // Honeypot: a hidden field real users never see. Bots tend to fill every field.
+  const [trampa, setTrampa] = useState("");
+
+  // Earliest selectable reservation date (today), in YYYY-MM-DD for the date input.
+  const hoy = new Date().toISOString().split("T")[0];
+  const URL_RE = /(https?:\/\/|www\.)/i;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+  }
+
+  function validar() {
+    const e: Record<string, string> = {};
+    const nombre = form.nombre.trim();
+    if (nombre.length < 2) e.nombre = "Introduce tu nombre.";
+    else if (URL_RE.test(nombre)) e.nombre = "El nombre no puede contener enlaces.";
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "Introduce un email válido.";
+
+    if (form.telefono.trim() && !/^[+\d][\d\s().-]{6,}$/.test(form.telefono.trim()))
+      e.telefono = "Introduce un teléfono válido.";
+
+    if (!form.fecha) e.fecha = "Elige una fecha.";
+    else if (form.fecha < hoy) e.fecha = "La fecha no puede ser anterior a hoy.";
+
+    if (form.mensaje.length > 1000) e.mensaje = "El mensaje es demasiado largo.";
+    else if (URL_RE.test(form.mensaje)) e.mensaje = "El mensaje no puede contener enlaces.";
+
+    return e;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setEnviando(true);
     setError("");
+
+    // Honeypot tripped → almost certainly a bot. Pretend success, send nothing.
+    if (trampa) { setEnviado(true); return; }
+
+    const errs = validar();
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    setErrors({});
+    setEnviando(true);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -48,6 +85,7 @@ export default function ContactoPage() {
           subject: `Nueva reserva — ${form.nombre} (${form.personas} pers.)`,
           from_name: "Web Villa Nabo",
           replyto: form.email,
+          botcheck: trampa, // server-side honeypot check
           nombre: form.nombre,
           email: form.email,
           telefono: form.telefono,
@@ -91,6 +129,16 @@ export default function ContactoPage() {
     fontWeight: 500,
     marginBottom: "0.4rem",
   };
+
+  const errStyle = {
+    color: "var(--ember)",
+    fontSize: "0.8rem",
+    margin: "0.35rem 0 0",
+  };
+
+  // Input style with a red border when the field has a validation error.
+  const fieldStyle = (name: string) =>
+    errors[name] ? { ...inputStyle, borderColor: "var(--ember)" } : inputStyle;
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
@@ -226,29 +274,43 @@ export default function ContactoPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              {/* Honeypot anti-spam: hidden from users, bots that fill it are rejected */}
-              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: "none" }} />
+              {/* Honeypot anti-spam: hidden from real users (aria-hidden, off-screen, no tab
+                  stop). Bots that auto-fill every field trip it and get silently rejected. */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={trampa}
+                onChange={(e) => setTrampa(e.target.value)}
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+              />
 
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
                   <label style={labelStyle}>Nombre</label>
-                  <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required style={inputStyle} />
+                  <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required style={fieldStyle("nombre")} />
+                  {errors.nombre && <p style={errStyle}>{errors.nombre}</p>}
                 </div>
                 <div>
                   <label style={labelStyle}>Teléfono</label>
-                  <input name="telefono" value={form.telefono} onChange={handleChange} placeholder="+34 600 000 000" style={inputStyle} />
+                  <input name="telefono" value={form.telefono} onChange={handleChange} placeholder="+34 600 000 000" style={fieldStyle("telefono")} />
+                  {errors.telefono && <p style={errStyle}>{errors.telefono}</p>}
                 </div>
               </div>
 
               <div>
                 <label style={labelStyle}>Email</label>
-                <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" required style={inputStyle} />
+                <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" required style={fieldStyle("email")} />
+                {errors.email && <p style={errStyle}>{errors.email}</p>}
               </div>
 
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
                   <label style={labelStyle}>Fecha</label>
-                  <input name="fecha" type="date" value={form.fecha} onChange={handleChange} required style={inputStyle} />
+                  <input name="fecha" type="date" min={hoy} value={form.fecha} onChange={handleChange} required style={fieldStyle("fecha")} />
+                  {errors.fecha && <p style={errStyle}>{errors.fecha}</p>}
                 </div>
                 <div>
                   <label style={labelStyle}>Personas</label>
@@ -260,7 +322,8 @@ export default function ContactoPage() {
 
               <div>
                 <label style={labelStyle}>Mensaje o petición especial</label>
-                <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={4} placeholder="¿Alguna alergia, evento especial, preferencia de mesa...?" style={{ ...inputStyle, resize: "vertical" }} />
+                <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={4} placeholder="¿Alguna alergia, evento especial, preferencia de mesa...?" style={{ ...fieldStyle("mensaje"), resize: "vertical" }} />
+                {errors.mensaje && <p style={errStyle}>{errors.mensaje}</p>}
               </div>
 
               {error && (
