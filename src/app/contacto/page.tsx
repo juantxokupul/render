@@ -5,6 +5,10 @@ import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { MapPin, Phone, Mail, Clock, CheckCircle2, type LucideIcon } from "lucide-react";
 
+// Web3Forms access key. Get yours free at https://web3forms.com (enter hola@villanabo.es).
+// Safe to expose in client code — it only allows sending to the address it's registered to.
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "YOUR_ACCESS_KEY_HERE";
+
 type InfoItem = { Icon: LucideIcon; titulo: string; lineas: string[] };
 
 const infoItems: InfoItem[] = [
@@ -23,14 +27,47 @@ const horarios: [string, string][] = [
 export default function ContactoPage() {
   const [form, setForm] = useState({ nombre: "", email: "", telefono: "", fecha: "", personas: "2", mensaje: "" });
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState("");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setEnviado(true);
+    setEnviando(true);
+    setError("");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Nueva reserva — ${form.nombre} (${form.personas} pers.)`,
+          from_name: "Web Villa Nabo",
+          replyto: form.email,
+          nombre: form.nombre,
+          email: form.email,
+          telefono: form.telefono,
+          fecha: form.fecha,
+          personas: form.personas,
+          mensaje: form.mensaje,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setEnviado(true);
+      } else {
+        setError("No se pudo enviar la reserva. Inténtalo de nuevo o llámanos por teléfono.");
+      }
+    } catch {
+      setError("No se pudo enviar la reserva. Comprueba tu conexión e inténtalo de nuevo.");
+    } finally {
+      setEnviando(false);
+    }
   }
 
   const inputStyle = {
@@ -189,6 +226,9 @@ export default function ContactoPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              {/* Honeypot anti-spam: hidden from users, bots that fill it are rejected */}
+              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: "none" }} />
+
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
                   <label style={labelStyle}>Nombre</label>
@@ -223,7 +263,11 @@ export default function ContactoPage() {
                 <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={4} placeholder="¿Alguna alergia, evento especial, preferencia de mesa...?" style={{ ...inputStyle, resize: "vertical" }} />
               </div>
 
-              <button type="submit" style={{
+              {error && (
+                <p style={{ color: "var(--ember)", fontSize: "0.9rem", margin: 0 }}>{error}</p>
+              )}
+
+              <button type="submit" disabled={enviando} style={{
                 padding: "0.95rem",
                 background: "var(--gold)",
                 color: "var(--bg)",
@@ -232,14 +276,15 @@ export default function ContactoPage() {
                 fontSize: "0.95rem",
                 fontWeight: 600,
                 fontFamily: "var(--font-sans)",
-                cursor: "pointer",
+                cursor: enviando ? "wait" : "pointer",
+                opacity: enviando ? 0.7 : 1,
                 marginTop: "0.5rem",
                 boxShadow: "var(--shadow-gold)",
                 transition: "transform 0.2s, background 0.2s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--gold-soft)"; }}
+              onMouseEnter={(e) => { if (!enviando) e.currentTarget.style.background = "var(--gold-soft)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "var(--gold)"; }}>
-                Enviar Reserva
+                {enviando ? "Enviando..." : "Enviar Reserva"}
               </button>
             </form>
           )}
