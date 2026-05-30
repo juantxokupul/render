@@ -2,15 +2,18 @@
 
 import { useEffect } from "react";
 
-// Every image used across the site. They're reused between pages, so warming
-// them once on the first page makes later navigations show images instantly.
-const IMAGES = [
-  "/images/5374014.jpg",
-  "/images/4218028.jpg",
-  "/images/36366519.jpg",
-  "/images/36697295.jpg",
-  "/images/13902051.jpg",
-  "/images/29093620.jpg",
+// Every image used across the site, paired with the largest `sizes` it renders
+// at anywhere. They're reused between pages, so warming the *exact* variant a
+// later page will request makes that navigation show images instantly. Warming
+// a different width (e.g. always w=1920) just generates heavy variants no page
+// displays — wasted optimizer CPU and bandwidth.
+const IMAGES: { src: string; sizes: string }[] = [
+  { src: "/images/5374014.jpg", sizes: "100vw" }, // home hero (full-bleed)
+  { src: "/images/13902051.jpg", sizes: "100vw" }, // fiestas hero (full-bleed)
+  { src: "/images/36697295.jpg", sizes: "100vw" }, // inauguracion hero (full-bleed)
+  { src: "/images/4218028.jpg", sizes: "(max-width: 768px) 100vw, 550px" }, // cards
+  { src: "/images/36366519.jpg", sizes: "(max-width: 768px) 100vw, 350px" }, // cards
+  { src: "/images/29093620.jpg", sizes: "(max-width: 768px) 100vw, 350px" }, // gallery
 ];
 
 // next/image's default deviceSizes — the widths the optimizer can emit.
@@ -22,17 +25,36 @@ function optimizedUrl(src: string, width: number, quality = 75) {
   return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`;
 }
 
+// Resolve a CSS `<length>` token from a `sizes` string to pixels. Only the two
+// forms next/image emits here appear: "<n>vw" and "<n>px".
+function toPx(value: string) {
+  return value.endsWith("vw")
+    ? window.innerWidth * (parseFloat(value) / 100)
+    : parseFloat(value);
+}
+
+// Evaluate a `sizes` string the same way the browser does: walk the
+// comma-separated "(media) <length>" entries and take the first matching
+// condition's length (or the trailing bare length).
+function resolveSizePx(sizes: string) {
+  for (const part of sizes.split(",").map((s) => s.trim())) {
+    const match = part.match(/^(\(.+\))\s+(.+)$/);
+    if (!match) return toPx(part); // bare fallback length
+    if (window.matchMedia(match[1]).matches) return toPx(match[2]);
+  }
+  return toPx(sizes);
+}
+
 export default function ImagePreloader() {
   useEffect(() => {
     const warm = () => {
-      // Resolve the same width next/image picks for a full-bleed (sizes="100vw")
-      // image: smallest device size >= viewport * DPR. This matches the heaviest
-      // (hero) variant of each image, which is the one worth preloading.
-      const target = window.innerWidth * (window.devicePixelRatio || 1);
-      const width =
-        DEVICE_SIZES.find((w) => w >= target) ?? DEVICE_SIZES[DEVICE_SIZES.length - 1];
-
-      for (const src of IMAGES) {
+      const dpr = window.devicePixelRatio || 1;
+      for (const { src, sizes } of IMAGES) {
+        // Same selection next/image makes: smallest device size >= the slot's
+        // displayed width scaled by DPR.
+        const target = resolveSizePx(sizes) * dpr;
+        const width =
+          DEVICE_SIZES.find((w) => w >= target) ?? DEVICE_SIZES[DEVICE_SIZES.length - 1];
         const img = new window.Image();
         img.src = optimizedUrl(src, width);
       }
