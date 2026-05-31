@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
-import { MapPin, Phone, Mail, Clock, CheckCircle2, type LucideIcon } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
+import { useI18n } from "@/src/i18n/context";
 
 // Web3Forms access key. Get yours free at https://web3forms.com (enter hola@villanabo.es).
 // Safe to expose in client code — it only allows sending to the address it's registered to,
@@ -11,22 +12,15 @@ import { MapPin, Phone, Mail, Clock, CheckCircle2, type LucideIcon } from "lucid
 // host's build-time env vars; an env var, if set, still overrides it.
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "799e244c-5ae7-437e-8ea0-3e0693a06dff";
 
-type InfoItem = { Icon: LucideIcon; titulo: string; lineas: string[] };
-
-const infoItems: InfoItem[] = [
-  { Icon: MapPin, titulo: "Dirección", lineas: ["Camino Rural de Villa Nabo, s/n", "09451 Arauzo de Torre, Burgos"] },
-  { Icon: Phone, titulo: "Teléfono", lineas: ["+34 666 666 666", "Lunes a Domingo 10:00 - 23:00"] },
-  { Icon: Mail, titulo: "Email", lineas: ["hola@villanabo.es", "Respondemos en menos de 24h"] },
-];
-
-const horarios: [string, string][] = [
-  ["Lunes – Jueves", "12:00 – 22:00"],
-  ["Viernes", "12:00 – 02:00"],
-  ["Sábado", "11:00 – 03:00"],
-  ["Domingo", "11:00 – 20:00"],
-];
+// Icons pair with dict.contacto.infoItems by index (address, phone, email).
+const infoIcons = [MapPin, Phone, Mail];
 
 export default function ContactoPage() {
+  const { dict } = useI18n();
+  const t = dict.contacto;
+  const infoItems = t.infoItems.map((it, i) => ({ ...it, Icon: infoIcons[i] }));
+  const horarios = t.horarios;
+
   const [form, setForm] = useState({ nombre: "", email: "", telefono: "", fecha: "", personas: "2", mensaje: "" });
   const [enviado, setEnviado] = useState(false);
   const [enviando, setEnviando] = useState(false);
@@ -47,19 +41,19 @@ export default function ContactoPage() {
   function validar() {
     const e: Record<string, string> = {};
     const nombre = form.nombre.trim();
-    if (nombre.length < 2) e.nombre = "Introduce tu nombre.";
-    else if (URL_RE.test(nombre)) e.nombre = "El nombre no puede contener enlaces.";
+    if (nombre.length < 2) e.nombre = t.errorsForm.nameShort;
+    else if (URL_RE.test(nombre)) e.nombre = t.errorsForm.nameLink;
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "Introduce un email válido.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = t.errorsForm.email;
 
     if (form.telefono.trim() && !/^[+\d][\d\s().-]{6,}$/.test(form.telefono.trim()))
-      e.telefono = "Introduce un teléfono válido.";
+      e.telefono = t.errorsForm.phone;
 
-    if (!form.fecha) e.fecha = "Elige una fecha.";
-    else if (form.fecha < hoy) e.fecha = "La fecha no puede ser anterior a hoy.";
+    if (!form.fecha) e.fecha = t.errorsForm.dateEmpty;
+    else if (form.fecha < hoy) e.fecha = t.errorsForm.datePast;
 
-    if (form.mensaje.length > 1000) e.mensaje = "El mensaje es demasiado largo.";
-    else if (URL_RE.test(form.mensaje)) e.mensaje = "El mensaje no puede contener enlaces.";
+    if (form.mensaje.length > 1000) e.mensaje = t.errorsForm.messageLong;
+    else if (URL_RE.test(form.mensaje)) e.mensaje = t.errorsForm.messageLink;
 
     return e;
   }
@@ -99,10 +93,10 @@ export default function ContactoPage() {
       if (data.success) {
         setEnviado(true);
       } else {
-        setError("No se pudo enviar la reserva. Inténtalo de nuevo o llámanos por teléfono.");
+        setError(t.sendFail);
       }
     } catch {
-      setError("No se pudo enviar la reserva. Comprueba tu conexión e inténtalo de nuevo.");
+      setError(t.sendNetwork);
     } finally {
       setEnviando(false);
     }
@@ -159,7 +153,7 @@ export default function ContactoPage() {
           textTransform: "uppercase",
           marginBottom: "1rem",
         }}>
-          Estamos aquí
+          {t.heroKicker}
         </p>
         <h2 style={{
           fontFamily: "var(--font-display)",
@@ -168,10 +162,10 @@ export default function ContactoPage() {
           color: "var(--text)",
           marginBottom: "1rem",
         }}>
-          Contacto & Reservas
+          {t.heroTitle}
         </h2>
         <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}>
-          ¿Tienes preguntas o quieres reservar tu mesa? Estamos aquí para ayudarte.
+          {t.heroSubtitle}
         </p>
       </section>
 
@@ -187,7 +181,7 @@ export default function ContactoPage() {
             color: "var(--text)",
             marginBottom: "1.5rem",
           }}>
-            Información
+            {t.infoTitle}
           </h3>
 
           {infoItems.map(({ Icon, titulo, lineas }) => (
@@ -231,9 +225,9 @@ export default function ContactoPage() {
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1rem" }}>
               <Clock size={18} color="var(--gold)" />
-              <p style={{ fontWeight: 600, color: "var(--text)" }}>Horarios</p>
+              <p style={{ fontWeight: 600, color: "var(--text)" }}>{t.hoursTitle}</p>
             </div>
-            {horarios.map(([dia, hora]) => (
+            {horarios.map(({ dia, hora }) => (
               <div key={dia} style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -257,7 +251,7 @@ export default function ContactoPage() {
             color: "var(--text)",
             marginBottom: "1.5rem",
           }}>
-            {enviado ? "¡Reserva Recibida!" : "Reserva tu Mesa"}
+            {enviado ? t.formTitleSent : t.formTitleDefault}
           </h3>
 
           <div style={{
@@ -270,7 +264,7 @@ export default function ContactoPage() {
           {enviado ? (
             <div style={{ textAlign: "center", padding: "2rem 0" }}>
               <CheckCircle2 size={56} color="var(--gold)" style={{ marginBottom: "1.25rem" }} />
-              <p style={{ color: "var(--text-muted)" }}>Te confirmaremos tu mesa por email en menos de 24 horas.</p>
+              <p style={{ color: "var(--text-muted)" }}>{t.formSentText}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
@@ -289,40 +283,40 @@ export default function ContactoPage() {
 
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
-                  <label style={labelStyle}>Nombre</label>
-                  <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required style={fieldStyle("nombre")} />
+                  <label style={labelStyle}>{t.labelName}</label>
+                  <input name="nombre" value={form.nombre} onChange={handleChange} placeholder={t.placeholderName} required style={fieldStyle("nombre")} />
                   {errors.nombre && <p style={errStyle}>{errors.nombre}</p>}
                 </div>
                 <div>
-                  <label style={labelStyle}>Teléfono</label>
+                  <label style={labelStyle}>{t.labelPhone}</label>
                   <input name="telefono" value={form.telefono} onChange={handleChange} placeholder="+34 600 000 000" style={fieldStyle("telefono")} />
                   {errors.telefono && <p style={errStyle}>{errors.telefono}</p>}
                 </div>
               </div>
 
               <div>
-                <label style={labelStyle}>Email</label>
-                <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" required style={fieldStyle("email")} />
+                <label style={labelStyle}>{t.labelEmail}</label>
+                <input name="email" type="email" value={form.email} onChange={handleChange} placeholder={t.placeholderEmail} required style={fieldStyle("email")} />
                 {errors.email && <p style={errStyle}>{errors.email}</p>}
               </div>
 
               <div className="grid-2col" style={{ gap: "1rem" }}>
                 <div>
-                  <label style={labelStyle}>Fecha</label>
+                  <label style={labelStyle}>{t.labelDate}</label>
                   <input name="fecha" type="date" min={hoy} value={form.fecha} onChange={handleChange} required style={fieldStyle("fecha")} />
                   {errors.fecha && <p style={errStyle}>{errors.fecha}</p>}
                 </div>
                 <div>
-                  <label style={labelStyle}>Personas</label>
+                  <label style={labelStyle}>{t.labelPeople}</label>
                   <select name="personas" value={form.personas} onChange={handleChange} style={inputStyle}>
-                    {["1","2","3","4","5","6","7","8","9","10+"].map((n) => <option key={n} value={n}>{n} persona{n !== "1" ? "s" : ""}</option>)}
+                    {["1","2","3","4","5","6","7","8","9","10+"].map((n) => <option key={n} value={n}>{n} {n === "1" ? t.personSingular : t.personPlural}</option>)}
                   </select>
                 </div>
               </div>
 
               <div>
-                <label style={labelStyle}>Mensaje o petición especial</label>
-                <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={4} placeholder="¿Alguna alergia, evento especial, preferencia de mesa...?" style={{ ...fieldStyle("mensaje"), resize: "vertical" }} />
+                <label style={labelStyle}>{t.labelMessage}</label>
+                <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={4} placeholder={t.placeholderMessage} style={{ ...fieldStyle("mensaje"), resize: "vertical" }} />
                 {errors.mensaje && <p style={errStyle}>{errors.mensaje}</p>}
               </div>
 
@@ -347,7 +341,7 @@ export default function ContactoPage() {
               }}
               onMouseEnter={(e) => { if (!enviando) e.currentTarget.style.background = "var(--gold-soft)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "var(--gold)"; }}>
-                {enviando ? "Enviando..." : "Enviar Reserva"}
+                {enviando ? t.submitting : t.submit}
               </button>
             </form>
           )}

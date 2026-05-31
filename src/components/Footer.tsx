@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-
-const links = [
-  { href: "/", label: "Inicio" },
-  { href: "/menu", label: "Menú" },
-  { href: "/fiestas", label: "Fiestas & Eventos" },
-  { href: "/contacto", label: "Contacto & Reservas" },
-];
+import { useI18n } from "@/src/i18n/context";
 
 const InstagramIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -39,6 +33,15 @@ const redes: Red[] = [
 ];
 
 export default function Footer() {
+  const { dict } = useI18n();
+
+  const links = [
+    { href: "/", label: dict.footer.links.inicio },
+    { href: "/menu", label: dict.footer.links.menu },
+    { href: "/fiestas", label: dict.footer.links.fiestas },
+    { href: "/contacto", label: dict.footer.links.contacto },
+  ];
+
   return (
     <footer style={{
       background: "var(--bg-elevated)",
@@ -59,7 +62,7 @@ export default function Footer() {
             Villa Nabo
           </h3>
           <p style={{ fontSize: "0.92rem", lineHeight: 1.7, maxWidth: "320px", marginBottom: "1.5rem" }}>
-            Un refugio rural donde las mejores carnes a la brasa se fusionan con música, cocktails y diversión bajo el atardecer.
+            {dict.footer.tagline}
           </p>
           <div style={{ display: "flex", gap: "0.6rem" }}>
             {redes.map((r) => (
@@ -110,7 +113,7 @@ export default function Footer() {
             textTransform: "uppercase",
             letterSpacing: "0.15em",
           }}>
-            Páginas
+            {dict.footer.pagesTitle}
           </p>
           <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             {links.map((l) => (
@@ -138,12 +141,12 @@ export default function Footer() {
             textTransform: "uppercase",
             letterSpacing: "0.15em",
           }}>
-            Encuéntranos
+            {dict.footer.findUsTitle}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem", fontSize: "0.9rem" }}>
             <p style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
               <MapPin size={16} color="var(--gold)" style={{ flexShrink: 0, marginTop: "2px" }} />
-              <span>Camino Rural de Villa Nabo, s/n<br /><span style={{ color: "var(--text-dim)" }}>Arauzo de Torre, Burgos</span></span>
+              <span>{dict.footer.addressLine1}<br /><span style={{ color: "var(--text-dim)" }}>{dict.footer.addressLine2}</span></span>
             </p>
             <p style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
               <Phone size={16} color="var(--gold)" style={{ flexShrink: 0 }} />
@@ -155,7 +158,7 @@ export default function Footer() {
             </p>
             <p style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
               <Clock size={16} color="var(--gold)" style={{ flexShrink: 0, marginTop: "2px" }} />
-              <span>Lun–Jue 12–22h<br /><span style={{ color: "var(--ember)" }}>Vie–Sáb hasta las 3:00</span></span>
+              <span>{dict.footer.hoursLine1}<br /><span style={{ color: "var(--ember)" }}>{dict.footer.hoursLine2}</span></span>
             </p>
           </div>
         </div>
@@ -168,7 +171,7 @@ export default function Footer() {
         fontSize: "0.82rem",
         color: "var(--text-dim)",
       }}>
-        © 2026 Villa Nabo · Carnes a la Brasa Artesanales
+        {dict.footer.copyright}
       </div>
     </footer>
   );

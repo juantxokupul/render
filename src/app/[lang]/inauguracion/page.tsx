@@ -3,28 +3,26 @@ import Image from "next/image";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { DoorOpen, Wine, Flame, Headphones, Sparkles, Moon, ArrowRight, type LucideIcon } from "lucide-react";
+import { getDictionary } from "@/src/i18n/dictionaries";
+import type { Locale } from "@/src/i18n/config";
 
-type ProgramaItem = { hora: string; titulo: string; desc: string; Icon: LucideIcon };
-
-const programa: ProgramaItem[] = [
-  { hora: "19:00", titulo: "Apertura de puertas", desc: "Bienvenida con cocktail de inauguración para todos los asistentes", Icon: DoorOpen },
-  { hora: "20:00", titulo: "Brindis Inaugural", desc: "Palabras de bienvenida y brindis oficial con cava de la casa", Icon: Wine },
-  { hora: "20:30", titulo: "Servicio de Carnes", desc: "Apertura de la parrilla con los mejores cortes de la carta", Icon: Flame },
-  { hora: "22:00", titulo: "DJ en Vivo", desc: "Música electrónica y sesión especial para la inauguración", Icon: Headphones },
-  { hora: "00:00", titulo: "Fuegos & Sorpresas", desc: "Espectáculo especial de medianoche con sorpresas para los asistentes", Icon: Sparkles },
-  { hora: "03:00", titulo: "Cierre", desc: "Fin de la fiesta inaugural. ¡Hasta la próxima!", Icon: Moon },
+// Time + icon per programme entry, zipped with dict.inauguracion.programa by index.
+const programaMeta: { hora: string; Icon: LucideIcon }[] = [
+  { hora: "19:00", Icon: DoorOpen },
+  { hora: "20:00", Icon: Wine },
+  { hora: "20:30", Icon: Flame },
+  { hora: "22:00", Icon: Headphones },
+  { hora: "00:00", Icon: Sparkles },
+  { hora: "03:00", Icon: Moon },
 ];
 
-const incluye = [
-  "Cocktail de bienvenida incluido",
-  "Descuento especial en carta (20%)",
-  "DJ en vivo toda la noche",
-  "Espectáculo sorpresa a medianoche",
-  "Regalo de inauguración para los primeros 50 asistentes",
-  "Fotógrafo profesional en el evento",
-];
+export default async function InauguracionPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const t = getDictionary(lang).inauguracion;
+  const programa = t.programa.map((p, i) => ({ ...p, ...programaMeta[i] }));
+  const incluye = t.incluye;
+  const facts = t.facts;
 
-export default function InauguracionPage() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
@@ -61,7 +59,7 @@ export default function InauguracionPage() {
             borderRadius: "var(--r-pill)",
             marginBottom: "2rem",
           }}>
-            <Sparkles size={14} /> Evento Especial · Entrada Libre
+            <Sparkles size={14} /> {t.badge}
           </span>
           <h2 style={{
             fontFamily: "var(--font-display)",
@@ -71,13 +69,13 @@ export default function InauguracionPage() {
             marginBottom: "1.25rem",
             lineHeight: 1.1,
           }}>
-            Gran Fiesta de<br /><span style={{ color: "var(--gold)" }}>Inauguración</span>
+            {t.titleLine1}<br /><span style={{ color: "var(--gold)" }}>{t.titleLine2}</span>
           </h2>
           <p style={{ fontSize: "1.2rem", color: "var(--ember-soft)", fontWeight: 500, marginBottom: "1.75rem" }}>
-            Sábado 6 de Junio · Villa Nabo abre sus puertas
+            {t.heroDate}
           </p>
           <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "620px", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-            Una noche única para celebrar el nacimiento de Villa Nabo. Únete a nosotros en una velada llena de carnes a la brasa, música, cocktails y mucha diversión bajo el cielo de Arauzo de Torre
+            {t.heroText}
           </p>
           <div className="cta-buttons">
             <Link href="/contacto" style={{
@@ -93,7 +91,7 @@ export default function InauguracionPage() {
               textDecoration: "none",
               boxShadow: "var(--shadow-gold)",
             }}>
-              Reservar mi plaza <ArrowRight size={16} />
+              {t.ctaReserve} <ArrowRight size={16} />
             </Link>
             <a href="#programa" style={{
               display: "inline-flex",
@@ -107,7 +105,7 @@ export default function InauguracionPage() {
               fontSize: "1rem",
               textDecoration: "none",
             }}>
-              Ver programa
+              {t.ctaProgram}
             </a>
           </div>
         </div>
@@ -128,12 +126,7 @@ export default function InauguracionPage() {
           gap: "2rem",
           textAlign: "center",
         }}>
-          {[
-            { valor: "6 JUN", label: "Fecha del Evento" },
-            { valor: "19:00h", label: "Apertura de Puertas" },
-            { valor: "LIBRE", label: "Entrada" },
-            { valor: "03:00h", label: "Hasta las" },
-          ].map((item) => (
+          {facts.map((item) => (
             <div key={item.label}>
               <p style={{
                 fontFamily: "var(--font-display)",
@@ -162,9 +155,9 @@ export default function InauguracionPage() {
             color: "var(--text)",
             marginBottom: "0.5rem",
           }}>
-            ¿Qué incluye la noche?
+            {t.includeTitle}
           </h3>
-          <p style={{ color: "var(--text-muted)" }}>Todo lo que te espera en la gran apertura de Villa Nabo</p>
+          <p style={{ color: "var(--text-muted)" }}>{t.includeSubtitle}</p>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
           {incluye.map((texto) => (
@@ -202,9 +195,9 @@ export default function InauguracionPage() {
               color: "var(--text)",
               marginBottom: "0.5rem",
             }}>
-              Programa de la Noche
+              {t.programTitle}
             </h3>
-            <p style={{ color: "var(--text-muted)" }}>Sábado 6 de Junio · Arauzo de Torre, Burgos</p>
+            <p style={{ color: "var(--text-muted)" }}>{t.programSubtitle}</p>
           </div>
 
           <div style={{ position: "relative" }}>
@@ -260,7 +253,7 @@ export default function InauguracionPage() {
         <div style={{ position: "relative", width: "100%", height: "420px", borderRadius: "var(--r-md)", overflow: "hidden", boxShadow: "var(--shadow-lg)" }}>
           <Image
             src="/images/4218028.jpg"
-            alt="Fiesta de inauguración"
+            alt={t.storyImgAlt}
             fill
             sizes="(max-width: 768px) 100vw, 550px"
             style={{ objectFit: "cover" }}
@@ -274,13 +267,13 @@ export default function InauguracionPage() {
             color: "var(--text)",
             marginBottom: "1.25rem",
           }}>
-            Una noche que no olvidarás
+            {t.storyTitle}
           </h3>
           <p style={{ color: "var(--text-muted)", lineHeight: 1.8, marginBottom: "1.25rem" }}>
-            Villa Nabo nace con la vocación de ser el punto de encuentro de la comarca: un lugar donde el fuego de la brasa, la buena música y la compañía se fusionan en una experiencia única.
+            {t.storyP1}
           </p>
           <p style={{ color: "var(--text-muted)", lineHeight: 1.8, marginBottom: "2rem" }}>
-            La noche del 6 de Junio abrimos nuestras puertas por primera vez y queremos celebrarlo a lo grande contigo. Entrada libre, pero las plazas son limitadas.
+            {t.storyP2}
           </p>
           <Link href="/contacto" style={{
             display: "inline-flex",
@@ -294,7 +287,7 @@ export default function InauguracionPage() {
             textDecoration: "none",
             boxShadow: "var(--shadow-gold)",
           }}>
-            Reservar mi plaza gratis <ArrowRight size={16} />
+            {t.storyCta} <ArrowRight size={16} />
           </Link>
         </div>
       </section>
@@ -313,10 +306,10 @@ export default function InauguracionPage() {
           color: "var(--text)",
           marginBottom: "1rem",
         }}>
-          ¿Nos vemos el 6 de Junio?
+          {t.finalCtaTitle}
         </h3>
         <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", marginBottom: "2.25rem", maxWidth: "540px", margin: "0 auto 2.25rem" }}>
-          Reserva tu plaza ahora — la entrada es libre pero el aforo es limitado.
+          {t.finalCtaText}
         </p>
         <Link href="/contacto" style={{
           display: "inline-flex",
@@ -331,7 +324,7 @@ export default function InauguracionPage() {
           textDecoration: "none",
           boxShadow: "var(--shadow-gold)",
         }}>
-          ¡Reservar plaza ahora! <ArrowRight size={16} />
+          {t.finalCtaButton} <ArrowRight size={16} />
         </Link>
       </section>
 

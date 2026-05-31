@@ -3,32 +3,14 @@ import Image from "next/image";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { Clock, ArrowRight } from "lucide-react";
+import { getDictionary } from "@/src/i18n/dictionaries";
+import type { Locale } from "@/src/i18n/config";
 
-const eventos = [
-  {
-    dia: "Viernes",
-    nombre: "Sunset Sessions",
-    desc: "Música electrónica suave mientras el sol se pone. Cocktails de bienvenida y pinchos.",
-    hora: "19:00 – 02:00",
-    img: "/images/4218028.jpg",
-    tipo: "Electrónica & Chill",
-  },
-  {
-    dia: "Sábado",
-    nombre: "Fuego & Ritmo",
-    hora: "20:00 – 03:00",
-    desc: "La gran noche de Villa Nabo. DJ en vivo, barra libre de cocktails y la mejor carne a la brasa.",
-    img: "/images/36697295.jpg",
-    tipo: "DJ + Open Bar",
-  },
-  {
-    dia: "Domingo",
-    nombre: "Brunch & Brasa",
-    hora: "12:00 – 18:00",
-    desc: "Brunch especial con cortes selectos, música en vivo acústica y el mejor ambiente para despedir el fin de semana.",
-    img: "/images/5374014.jpg",
-    tipo: "Música Acústica",
-  },
+// Time + image per event, zipped with dict.fiestas.eventos by index.
+const eventosMeta = [
+  { hora: "19:00 – 02:00", img: "/images/4218028.jpg" },
+  { hora: "20:00 – 03:00", img: "/images/36697295.jpg" },
+  { hora: "12:00 – 18:00", img: "/images/5374014.jpg" },
 ];
 
 const galeria = [
@@ -40,7 +22,11 @@ const galeria = [
   "/images/29093620.jpg",
 ];
 
-export default function FiestasPage() {
+export default async function FiestasPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const t = getDictionary(lang).fiestas;
+  const eventos = t.eventos.map((e, i) => ({ ...e, ...eventosMeta[i] }));
+
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
@@ -70,7 +56,7 @@ export default function FiestasPage() {
             textTransform: "uppercase",
             marginBottom: "1rem",
           }}>
-            Cada fin de semana
+            {t.heroKicker}
           </p>
           <h2 style={{
             fontFamily: "var(--font-display)",
@@ -79,10 +65,10 @@ export default function FiestasPage() {
             color: "var(--text)",
             marginBottom: "1.25rem",
           }}>
-            Fiestas & Eventos
+            {t.heroTitle}
           </h2>
           <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
-            Cada semana el atardecer transforma Villa Nabo en un espacio único de música, cocktails y diversión.
+            {t.heroSubtitle}
           </p>
         </div>
       </section>
@@ -96,7 +82,7 @@ export default function FiestasPage() {
             fontWeight: 700,
             color: "var(--text)",
           }}>
-            Programación Semanal
+            {t.scheduleTitle}
           </h3>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -153,13 +139,13 @@ export default function FiestasPage() {
             fontWeight: 700,
             color: "var(--text)",
           }}>
-            Galería de Momentos
+            {t.galleryTitle}
           </h3>
         </div>
         <div className="grid-3col" style={{ maxWidth: "1100px", margin: "0 auto", gap: "1rem" }}>
           {galeria.map((src, i) => (
             <div key={i} style={{ position: "relative", width: "100%", height: "240px", borderRadius: "var(--r-md)", overflow: "hidden", boxShadow: "var(--shadow-sm)" }}>
-              <Image src={src} alt={`Momento ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 350px" style={{ objectFit: "cover" }} />
+              <Image src={src} alt={`${t.galleryAlt} ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 350px" style={{ objectFit: "cover" }} />
             </div>
           ))}
         </div>
@@ -174,10 +160,10 @@ export default function FiestasPage() {
           color: "var(--text)",
           marginBottom: "1rem",
         }}>
-          ¿Vienes esta semana?
+          {t.ctaTitle}
         </h3>
         <p style={{ color: "var(--text-muted)", marginBottom: "2.25rem", fontSize: "1.05rem" }}>
-          Reserva tu mesa o consigue tu entrada para los eventos especiales
+          {t.ctaText}
         </p>
         <Link href="/contacto" style={{
           display: "inline-flex",
@@ -192,7 +178,7 @@ export default function FiestasPage() {
           fontSize: "0.95rem",
           boxShadow: "var(--shadow-gold)",
         }}>
-          Reservar Ahora <ArrowRight size={16} />
+          {t.ctaReserve} <ArrowRight size={16} />
         </Link>
       </section>
 

@@ -5,17 +5,26 @@ import Image from "next/image";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { Flame, Check, Music, Wine, Sunset, Users, Clock, ArrowRight } from "lucide-react";
+import { useI18n } from "@/src/i18n/context";
 
-const carnes = ["Costillas BBQ", "Asado Argentino", "Carne Wagyu", "Pinchos Mixtos", "Carnes de Temporada"];
-
-const atardeceres = [
-  { Icon: Music, titulo: "Música en Vivo", desc: "DJ's y bandas en vivo", img: "/images/4218028.jpg", link: "/fiestas" },
-  { Icon: Wine, titulo: "Cocktails Premium", desc: "Bebidas artesanales", img: "/images/36366519.jpg", link: "/menu#cocktails" },
-  { Icon: Sunset, titulo: "Atardecer Mágico", desc: "Vistas incomparables", img: "/images/36697295.jpg", link: "/fiestas" },
-  { Icon: Users, titulo: "Ambiente Joven", desc: "Diversión garantizada", img: "/images/13902051.jpg", link: "/fiestas" },
+// Language-independent bits (icon, image, link). The text is zipped in from the
+// dictionary by index — keep this array aligned with dict.home.atardeceresCards.
+const atardeceresMeta = [
+  { Icon: Music, img: "/images/4218028.jpg", link: "/fiestas" },
+  { Icon: Wine, img: "/images/36366519.jpg", link: "/menu#cocktails" },
+  { Icon: Sunset, img: "/images/36697295.jpg", link: "/fiestas" },
+  { Icon: Users, img: "/images/13902051.jpg", link: "/fiestas" },
 ];
 
+const horariosMeta = [{ accent: false }, { accent: false }, { accent: true }];
+
 export default function Home() {
+  const { dict } = useI18n();
+  const t = dict.home;
+  const carnes = t.carnesItems;
+  const atardeceres = atardeceresMeta.map((m, i) => ({ ...m, ...t.atardeceresCards[i] }));
+  const horarios = horariosMeta.map((m, i) => ({ ...m, ...t.horarios[i] }));
+
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
@@ -52,7 +61,7 @@ export default function Home() {
             marginBottom: "2rem",
             background: "rgba(212,165,116,0.06)",
           }}>
-            <Flame size={14} /> Carnes a la brasa · Arauzo de Torre
+            <Flame size={14} /> {t.heroBadge}
           </span>
           <h2 style={{
             fontFamily: "var(--font-display)",
@@ -72,7 +81,7 @@ export default function Home() {
             lineHeight: 1.7,
             textShadow: "0 2px 12px rgba(0,0,0,0.6)",
           }}>
-            Un refugio rural donde la tradición de la brasa se encuentra con noches de música, cocktails y atardeceres inolvidables.
+            {t.heroSubtitle}
           </p>
           <div className="cta-buttons">
             <Link href="/contacto" style={{
@@ -92,7 +101,7 @@ export default function Home() {
             }}
             onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}>
-              Reservar Mesa <ArrowRight size={16} />
+              {t.ctaReserve} <ArrowRight size={16} />
             </Link>
             <Link href="/menu" style={{
               display: "inline-flex",
@@ -111,7 +120,7 @@ export default function Home() {
             }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-strong)"; e.currentTarget.style.color = "var(--text)"; }}>
-              Ver la carta
+              {t.ctaMenu}
             </Link>
           </div>
         </div>
@@ -129,7 +138,7 @@ export default function Home() {
               textTransform: "uppercase",
               marginBottom: "1rem",
             }}>
-              La casa
+              {t.carnesKicker}
             </p>
             <h3 style={{
               fontFamily: "var(--font-display)",
@@ -138,10 +147,10 @@ export default function Home() {
               color: "var(--text)",
               marginBottom: "1.25rem",
             }}>
-              Nuestras Carnes
+              {t.carnesTitle}
             </h3>
             <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.75, marginBottom: "1.75rem" }}>
-              En Villa Nabo preparamos las mejores carnes a la brasa con técnicas tradicionales. Cada pieza es seleccionada cuidadosamente para garantizar la máxima calidad y sabor.
+              {t.carnesText}
             </p>
             <ul style={{ listStyle: "none", padding: 0 }}>
               {carnes.map((item) => (
@@ -162,7 +171,7 @@ export default function Home() {
           </div>
           <Image
             src="/images/5374014.jpg"
-            alt="Carnes a la brasa"
+            alt={t.carnesImgAlt}
             width={800}
             height={520}
             sizes="(max-width: 768px) 100vw, 600px"
@@ -194,7 +203,7 @@ export default function Home() {
               textTransform: "uppercase",
               marginBottom: "1rem",
             }}>
-              Después de las 19:00
+              {t.atardeceresKicker}
             </p>
             <h3 style={{
               fontFamily: "var(--font-display)",
@@ -203,10 +212,10 @@ export default function Home() {
               color: "var(--text)",
               marginBottom: "1rem",
             }}>
-              Atardeceres Inolvidables
+              {t.atardeceresTitle}
             </h3>
             <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
-              Cuando cae el sol en Villa Nabo, la magia comienza. Música en vivo, cocktails y gente joven lista para pasarlo bien.
+              {t.atardeceresText}
             </p>
           </div>
           <div style={{
@@ -244,7 +253,7 @@ export default function Home() {
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>
             <Clock size={28} color="var(--gold)" style={{ marginBottom: "1rem" }} />
             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 700, color: "var(--text)" }}>
-              Horarios
+              {t.horariosTitle}
             </h3>
           </div>
           <div style={{
@@ -252,11 +261,7 @@ export default function Home() {
             gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
             gap: "1.25rem",
           }}>
-            {[
-              { titulo: "Servicio de Día", horas: "12:00 – 18:00", accent: false },
-              { titulo: "Servicio de Noche", horas: "19:00 – 02:00", accent: false },
-              { titulo: "Fiestas & Eventos", horas: "Viernes a Domingo", accent: true },
-            ].map((h) => (
+            {horarios.map((h) => (
               <div key={h.titulo} style={{
                 background: "var(--bg-elevated)",
                 padding: "1.75rem",
@@ -289,10 +294,10 @@ export default function Home() {
           color: "var(--text)",
           marginBottom: "1rem",
         }}>
-          ¿Listo para disfrutar?
+          {t.ctaTitle}
         </h3>
         <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", marginBottom: "2.25rem", maxWidth: "560px", margin: "0 auto 2.25rem" }}>
-          Reserva tu mesa o ven a celebrar nuestras noches inolvidables
+          {t.ctaText}
         </p>
         <div className="cta-buttons">
           <Link href="/contacto" style={{
@@ -308,7 +313,7 @@ export default function Home() {
             fontSize: "0.95rem",
             boxShadow: "var(--shadow-gold)",
           }}>
-            Reservar Mesa <ArrowRight size={16} />
+            {t.ctaReserve} <ArrowRight size={16} />
           </Link>
           <Link href="/contacto" style={{
             display: "inline-flex",
@@ -323,7 +328,7 @@ export default function Home() {
             fontSize: "0.95rem",
             letterSpacing: "0.01em",
           }}>
-            Contáctanos
+            {t.ctaContact}
           </Link>
         </div>
       </section>

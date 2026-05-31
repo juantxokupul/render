@@ -2,75 +2,23 @@ import Link from "next/link";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { Flame, Salad, UtensilsCrossed, IceCream, Wine, ArrowRight, type LucideIcon } from "lucide-react";
+import { getDictionary } from "@/src/i18n/dictionaries";
+import type { Locale } from "@/src/i18n/config";
 
-type Section = {
-  id: string;
-  titulo: string;
-  Icon: LucideIcon;
-  platos: { nombre: string; desc: string; precio: string }[];
+// Icons pair with each menu section by its stable id.
+const sectionIcons: Record<string, LucideIcon> = {
+  carnes: Flame,
+  entrantes: Salad,
+  guarniciones: UtensilsCrossed,
+  postres: IceCream,
+  cocktails: Wine,
 };
 
-const sections: Section[] = [
-  {
-    id: "carnes",
-    titulo: "Carnes a la Brasa",
-    Icon: Flame,
-    platos: [
-      { nombre: "Entrecot de Vaca", desc: "400g de carne madurada, brasa de leña", precio: "28€" },
-      { nombre: "Costillas BBQ", desc: "Costillar entero con salsa de la casa", precio: "24€" },
-      { nombre: "Chuletón Wagyu", desc: "600g, pieza premium importada", precio: "45€" },
-      { nombre: "Asado Argentino", desc: "Cortes mixtos al estilo pampeano", precio: "32€" },
-      { nombre: "Pinchos Mixtos", desc: "Brocheta de res, cerdo y pollo", precio: "18€" },
-    ],
-  },
-  {
-    id: "entrantes",
-    titulo: "Entrantes",
-    Icon: Salad,
-    platos: [
-      { nombre: "Tabla de Embutidos", desc: "Selección de ibéricos de la región", precio: "14€" },
-      { nombre: "Pan de Brasa", desc: "Hogaza artesana con mantequilla de hierbas", precio: "5€" },
-      { nombre: "Ensalada de Temporada", desc: "Verduras frescas del huerto propio", precio: "9€" },
-      { nombre: "Croquetas de Jamón", desc: "Elaboración casera, 6 unidades", precio: "8€" },
-    ],
-  },
-  {
-    id: "guarniciones",
-    titulo: "Guarniciones",
-    Icon: UtensilsCrossed,
-    platos: [
-      { nombre: "Patatas Bravas", desc: "Con alioli y salsa brava", precio: "6€" },
-      { nombre: "Verduras a la Brasa", desc: "Calabacín, pimiento y berenjena", precio: "7€" },
-      { nombre: "Arroz con Setas", desc: "Setas de temporada salteadas", precio: "8€" },
-      { nombre: "Patatas Fritas Caseras", desc: "Corte grueso, fritas en aceite de oliva", precio: "5€" },
-    ],
-  },
-  {
-    id: "postres",
-    titulo: "Postres",
-    Icon: IceCream,
-    platos: [
-      { nombre: "Coulant de Chocolate", desc: "Con helado de vainilla artesano", precio: "7€" },
-      { nombre: "Tarta de Queso", desc: "Al horno, estilo vasco", precio: "6€" },
-      { nombre: "Fruta de Temporada", desc: "Selección del día con miel", precio: "5€" },
-      { nombre: "Helados Artesanos", desc: "3 bolas a elegir", precio: "5€" },
-    ],
-  },
-  {
-    id: "cocktails",
-    titulo: "Cocktails & Bebidas",
-    Icon: Wine,
-    platos: [
-      { nombre: "Mojito de la Casa", desc: "Ron blanco, lima, menta y azúcar moreno", precio: "9€" },
-      { nombre: "Sangría Villa Nabo", desc: "Receta propia con frutas de temporada", precio: "8€" },
-      { nombre: "Gin Tonic Premium", desc: "Ginebra artesana con botánicas seleccionadas", precio: "10€" },
-      { nombre: "Refresco / Agua", desc: "Variedad de refrescos y agua mineral", precio: "3€" },
-      { nombre: "Vino de la Casa", desc: "Tinto, blanco o rosado", precio: "4€/copa" },
-    ],
-  },
-];
+export default async function MenuPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const t = getDictionary(lang).menu;
+  const sections = t.sections;
 
-export default function MenuPage() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Navbar />
@@ -90,7 +38,7 @@ export default function MenuPage() {
           textTransform: "uppercase",
           marginBottom: "1rem",
         }}>
-          La carta
+          {t.heroKicker}
         </p>
         <h2 style={{
           fontFamily: "var(--font-display)",
@@ -99,10 +47,10 @@ export default function MenuPage() {
           color: "var(--text)",
           marginBottom: "1rem",
         }}>
-          Nuestra Carta
+          {t.heroTitle}
         </h2>
         <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "600px", margin: "0 auto", lineHeight: 1.7 }}>
-          Ingredientes frescos, técnicas artesanales y el sabor único del fuego. Todo preparado con cariño para ti.
+          {t.heroSubtitle}
         </p>
       </section>
 
@@ -126,7 +74,9 @@ export default function MenuPage() {
           justifyContent: "center",
           flexWrap: "wrap",
         }}>
-          {sections.map(({ id, titulo, Icon }) => (
+          {sections.map(({ id, titulo }) => {
+            const Icon = sectionIcons[id];
+            return (
             <a key={id} href={`#${id}`} style={{
               display: "inline-flex",
               alignItems: "center",
@@ -144,13 +94,16 @@ export default function MenuPage() {
               <Icon size={14} />
               {titulo}
             </a>
-          ))}
+            );
+          })}
         </div>
       </nav>
 
       {/* Menu Sections */}
       <section style={{ maxWidth: "900px", margin: "0 auto", padding: "4rem 2rem" }}>
-        {sections.map(({ id, titulo, Icon, platos }) => (
+        {sections.map(({ id, titulo, platos }) => {
+          const Icon = sectionIcons[id];
+          return (
           <div key={id} id={id} style={{ marginBottom: "4.5rem", scrollMarginTop: "5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem", paddingBottom: "0.75rem", borderBottom: "1px solid var(--border)" }}>
               <Icon size={24} color="var(--gold)" />
@@ -190,7 +143,8 @@ export default function MenuPage() {
               ))}
             </div>
           </div>
-        ))}
+          );
+        })}
       </section>
 
       {/* CTA */}
@@ -202,9 +156,9 @@ export default function MenuPage() {
           color: "var(--text)",
           marginBottom: "0.75rem",
         }}>
-          ¿Listo para reservar?
+          {t.ctaTitle}
         </h3>
-        <p style={{ color: "var(--text-muted)", marginBottom: "2rem" }}>Reserva ahora y asegura tu experiencia en Villa Nabo</p>
+        <p style={{ color: "var(--text-muted)", marginBottom: "2rem" }}>{t.ctaText}</p>
         <Link href="/contacto" style={{
           display: "inline-flex",
           alignItems: "center",
@@ -218,7 +172,7 @@ export default function MenuPage() {
           fontSize: "0.95rem",
           boxShadow: "var(--shadow-gold)",
         }}>
-          Reservar Mesa <ArrowRight size={16} />
+          {t.ctaReserve} <ArrowRight size={16} />
         </Link>
       </section>
 

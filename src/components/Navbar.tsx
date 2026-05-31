@@ -4,16 +4,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X, Sparkles, ArrowRight } from "lucide-react";
+import { useI18n } from "@/src/i18n/context";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { dict } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
-    { href: "/", label: "Inicio" },
-    { href: "/menu", label: "Menú" },
-    { href: "/fiestas", label: "Fiestas" },
-    { href: "/contacto", label: "Contacto" },
+    { href: "/", label: dict.nav.inicio },
+    { href: "/menu", label: dict.nav.menu },
+    { href: "/fiestas", label: dict.nav.fiestas },
+    { href: "/contacto", label: dict.nav.contacto },
   ];
 
   return (
@@ -53,7 +55,7 @@ export default function Navbar() {
           <button
             className="nav-hamburger"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menú"
+            aria-label={dict.nav.ariaMenu}
             aria-expanded={menuOpen}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -116,7 +118,7 @@ export default function Navbar() {
               letterSpacing: "0.03em",
               textAlign: "center",
             }}>
-              GRAN FIESTA DE INAUGURACIÓN · <span style={{ fontWeight: 800 }}>Sábado 6 de Junio</span>
+              {dict.banner.title} · <span style={{ fontWeight: 800 }}>{dict.banner.date}</span>
             </p>
             <span style={{
               background: "#0a0a0a",
@@ -132,7 +134,7 @@ export default function Navbar() {
               gap: "0.35rem",
               whiteSpace: "nowrap",
             }}>
-              Más info <ArrowRight size={14} className="banner-arrow" />
+              {dict.banner.more} <ArrowRight size={14} className="banner-arrow" />
             </span>
           </div>
         </Link>
