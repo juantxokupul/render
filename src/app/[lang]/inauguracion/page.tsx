@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
-import { DoorOpen, Wine, Flame, Headphones, Sparkles, Moon, ArrowRight, type LucideIcon } from "lucide-react";
+import { DoorOpen, Wine, Flame, Headphones, Sparkles, Moon, ArrowRight, type LucideIcon, PartyPopper } from "lucide-react";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import type { Locale } from "@/src/i18n/config";
 
@@ -14,6 +14,7 @@ const programaMeta: { hora: string; Icon: LucideIcon }[] = [
   { hora: "22:00", Icon: Headphones },
   { hora: "00:00", Icon: Sparkles },
   { hora: "03:00", Icon: Moon },
+  { hora: "03:15", Icon: PartyPopper },
 ];
 
 export default async function InauguracionPage({ params }: { params: Promise<{ lang: Locale }> }) {

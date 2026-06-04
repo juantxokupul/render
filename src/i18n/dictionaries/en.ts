@@ -263,6 +263,7 @@ const en: Dict = {
       { titulo: "Live DJ", desc: "Electronic music and a special set for the opening" },
       { titulo: "Fireworks & Surprises", desc: "Special midnight show with surprises for guests" },
       { titulo: "Closing", desc: "End of the opening party. See you next time!" },
+      { titulo: "After", desc: "Those who still have energy can continue the party at pub Cochinillo (Arauzo de Miel)" },
     ],
     storyTitle: "A night you won't forget",
     storyImgAlt: "Opening party",

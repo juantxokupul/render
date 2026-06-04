@@ -266,6 +266,7 @@ const es = {
       { titulo: "DJ en Vivo", desc: "Música electrónica y sesión especial para la inauguración" },
       { titulo: "Fuegos & Sorpresas", desc: "Espectáculo especial de medianoche con sorpresas para los asistentes" },
       { titulo: "Cierre", desc: "Fin de la fiesta inaugural. ¡Hasta la próxima!" },
+      { titulo: "After", desc: "A los que les queden fuerzas, pueden continuar la fiesta en pub Cochinillo (Arauzo de Miel)" },
     ],
     storyTitle: "Una noche que no olvidarás",
     storyImgAlt: "Fiesta de inauguración",

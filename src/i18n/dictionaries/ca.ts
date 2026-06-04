@@ -267,6 +267,7 @@ const ca: Dict = {
       { titulo: "DJ en Directe", desc: "Música electrònica i sessió especial per a la inauguració" },
       { titulo: "Focs i Sorpreses", desc: "Espectacle especial de mitjanit amb sorpreses per als assistents" },
       { titulo: "Tancament", desc: "Fi de la festa inaugural. Fins a la pròxima!" },
+      { titulo: "After", desc: "Els que encara tinguin forces, poden continuar la festa al pub Cochinillo (Arauzo de Miel)" },
     ],
     storyTitle: "Una nit que no oblidaràs",
     storyImgAlt: "Festa d'inauguració",
