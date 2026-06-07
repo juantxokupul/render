@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, Sparkles, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useI18n } from "@/src/i18n/context";
 
 export default function Navbar() {
