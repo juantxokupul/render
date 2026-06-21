@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Playfair_Display, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import ImagePreloader from "@/src/components/ImagePreloader";
 import { I18nProvider } from "@/src/i18n/context";
 import { locales, localeDomainUrls, type Locale } from "@/src/i18n/config";
@@ -73,6 +74,7 @@ export default async function RootLayout({
           <ImagePreloader />
         </I18nProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
