@@ -2,7 +2,7 @@
 // structure exactly (enforced by the `Dict` type in ./index.ts).
 const es = {
   meta: {
-    title: "Villa Nabo",
+    title: "Villanabo",
     description:
       "Disfruta de nuestras mejores carnes en un ambiente acogedor y auténtico.",
   },
