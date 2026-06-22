@@ -12,6 +12,7 @@ const en: Dict = {
     inicio: "Home",
     menu: "Menu",
     fiestas: "Events",
+    arco: "The Arch",
     contacto: "Contact",
     ariaMenu: "Menu",
   },
@@ -30,6 +31,7 @@ const en: Dict = {
       inicio: "Home",
       menu: "Menu",
       fiestas: "Parties & Events",
+      arco: "The Branch Arch",
       contacto: "Contact & Reservations",
     },
     findUsTitle: "Find Us",
@@ -276,6 +278,115 @@ const en: Dict = {
     finalCtaText:
       "Reserve your spot now — entry is free but capacity is limited.",
     finalCtaButton: "Reserve a spot now!",
+  },
+
+  arco: {
+    heroKicker: "The 'enramada' tradition",
+    heroTitle: "The Arch",
+    heroSubtitle:
+      "A step-by-step guide to raising the green arch that crowns the streets during the festivities of Arauzo de Torre.",
+
+    introTitle: "An arch that brings the village together",
+    introP1:
+      "The branch arch, or 'enramada', is one of the most beautiful sights of the festivities: a vault of green leaves spanning the street, welcoming neighbours and visitors alike. It is built as a team, almost always on the morning of the first day of the fiestas.",
+    introP2:
+      "You don't need to be an expert: with good branches, a couple of solid anchor points and a few hours of teamwork, any group of friends can raise their own. Here is everything you need to know.",
+
+    factsTitle: "At a glance",
+    facts: [
+      { valor: "2–3 h", label: "Build time" },
+      { valor: "3–5", label: "People" },
+      { valor: "Poplar", label: "Best branch" },
+      { valor: "Same day", label: "Cut the branches" },
+    ],
+
+    materialsTitle: "What you'll need",
+    materialsSubtitle: "Gather everything before you start; it saves a lot of trips.",
+    materials: [
+      {
+        nombre: "Green, leafy branches",
+        desc: "Poplar, willow or birch: long, flexible branches with plenty of leaves. Cut them the same morning you build so they arrive nice and green.",
+      },
+      {
+        nombre: "Two anchor points",
+        desc: "A narrow street between two houses is ideal. Use balconies, window grilles or drainpipes, or drive two sturdy posts into each side.",
+      },
+      {
+        nombre: "Rope, wire and zip ties",
+        desc: "Strong rope or steel cable for the frame, and zip ties or thin wire to fasten the branches so they don't come loose.",
+      },
+      {
+        nombre: "A curved structure",
+        desc: "A long flexible rod, a PVC pipe, or two long branches tied together in the middle to form the round or pointed arch shape.",
+      },
+      {
+        nombre: "Cutting tools",
+        desc: "Pruning shears, a pair of two-handed loppers and a handsaw for the thicker branches.",
+      },
+      {
+        nombre: "Ladder and gloves",
+        desc: "A stable ladder to reach the top and gloves to handle the branches without scratches.",
+      },
+    ],
+
+    stepsTitle: "Step by step",
+    stepsSubtitle: "Follow the order: from the base up to the top, and from the outside in.",
+    steps: [
+      {
+        titulo: "Choose the spot and measure the gap",
+        desc: "Look for a narrow street or a passage between two façades. Measure the distance between the two sides: that will be the width of the arch. Identify firm anchor points on each side.",
+      },
+      {
+        titulo: "Cut the branches the same day",
+        desc: "Cut long, leafy branches first thing in the morning. Keep them in the shade, or with the stems in water, until you build so they don't wilt.",
+      },
+      {
+        titulo: "Raise the frame of the arch",
+        desc: "Stretch a taut rope or cable from one side to the other, or bend a flexible rod (or two long branches tied in the middle) into the arch shape. Fix it firmly to both anchors: it must hold the weight and the wind.",
+      },
+      {
+        titulo: "Sort the branches",
+        desc: "Separate the branches: the longest and straightest for the body of the arch, the leafy medium ones to fill it in, and the small ones for the finishing touches.",
+      },
+      {
+        titulo: "Tie the large branches first",
+        desc: "Start at the base on each side and work towards the centre. Tie the large branches to the frame pointing upward, overlapping each one onto the stem of the previous, like roof tiles.",
+      },
+      {
+        titulo: "Fill in and thicken the arch",
+        desc: "Keep adding medium and small branches, overlapping them to cover the gaps and any bare stems. The denser it is, the greener and more beautiful it looks from below.",
+      },
+      {
+        titulo: "Close the top",
+        desc: "Bring branches from both sides until they meet at the top, forming the point or crown of the arch. Finish the join with several small, well-tied branches.",
+      },
+      {
+        titulo: "Check and secure",
+        desc: "Go over all the fastenings and tighten any that are loose. Make sure nothing hangs over the roadway or could fall onto people.",
+      },
+      {
+        titulo: "Decorate as you like",
+        desc: "Add bunting, garlands, flowers or ribbons in your group's colours, as in the photo. It's the finishing touch that gives the arch its festive spirit.",
+      },
+      {
+        titulo: "Water it and enjoy",
+        desc: "Mist the leaves with water to keep them green throughout the festivities. When they start to dry out, take the arch down and compost the branches.",
+      },
+    ],
+
+    tipsTitle: "Tips and safety",
+    tips: [
+      "Always work as a team: someone holds the ladder while another ties up high.",
+      "Watch out for power lines! Many streets have cables running across them: keep branches and tools well away from them.",
+      "Don't completely block access for emergency vehicles, and don't cover signs or streetlights.",
+      "Use zip ties or wire, not just thin rope: branches are heavier than they look and the wind pulls hard.",
+      "Ask the town hall or your neighbours for permission if you'll be anchoring to façades or balconies.",
+      "Build the arch no more than a day in advance: cut branches dry out within a few days.",
+    ],
+
+    ctaTitle: "Shall we build it together?",
+    ctaText: "Come and celebrate the festivities at Villa Nabo, under the arch, with the finest grill.",
+    ctaButton: "Book a Table",
   },
 };
 

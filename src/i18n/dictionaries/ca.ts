@@ -12,6 +12,7 @@ const ca: Dict = {
     inicio: "Inici",
     menu: "Menú",
     fiestas: "Festes",
+    arco: "L'Arc",
     contacto: "Contacte",
     ariaMenu: "Menú",
   },
@@ -30,6 +31,7 @@ const ca: Dict = {
       inicio: "Inici",
       menu: "Menú",
       fiestas: "Festes i Esdeveniments",
+      arco: "L'Arc de Branques",
       contacto: "Contacte i Reserves",
     },
     findUsTitle: "Troba'ns",
@@ -280,6 +282,115 @@ const ca: Dict = {
     finalCtaText:
       "Reserva la teva plaça ara — l'entrada és lliure però l'aforament és limitat.",
     finalCtaButton: "Reservar plaça ara!",
+  },
+
+  arco: {
+    heroKicker: "La tradició de l'enramada",
+    heroTitle: "L'Arc",
+    heroSubtitle:
+      "Guia pas a pas per aixecar l'arc verd que corona els carrers durant les festes d'Arauzo de Torre.",
+
+    introTitle: "Un arc que uneix el poble",
+    introP1:
+      "L'arc de branques, o enramada, és una de les estampes més boniques de les festes: una volta de fulles verdes que travessa el carrer i dóna la benvinguda a veïns i forasters. Es munta en colla, gairebé sempre el matí del primer dia de festes.",
+    introP2:
+      "No cal ser un expert: amb bones branques, un parell de punts ferms on ancorar i un parell d'hores de feina en equip, qualsevol colla pot aixecar el seu. Aquí tens tot el que necessites saber.",
+
+    factsTitle: "D'un cop d'ull",
+    facts: [
+      { valor: "2–3 h", label: "Temps de muntatge" },
+      { valor: "3–5", label: "Persones" },
+      { valor: "Pollancre", label: "Branca ideal" },
+      { valor: "El mateix dia", label: "Tallar les branques" },
+    ],
+
+    materialsTitle: "El que necessitaràs",
+    materialsSubtitle: "Reuneix tot el material abans de començar; t'estalvia molts viatges.",
+    materials: [
+      {
+        nombre: "Branques verdes i frondoses",
+        desc: "Pollancre, salze o bedoll: branques llargues, flexibles i amb molta fulla. Talla-les el mateix matí del muntatge perquè arribin ben verdes.",
+      },
+      {
+        nombre: "Dos punts d'ancoratge",
+        desc: "Un carrer estret entre dues cases és ideal. Aprofita balcons, reixes o baixants, o clava dos pals resistents a cada costat.",
+      },
+      {
+        nombre: "Corda, filferro i brides",
+        desc: "Corda forta o cable d'acer per a l'armadura, i brides o filferro fi per lligar les branques sense que es deslliguin.",
+      },
+      {
+        nombre: "Una estructura corba",
+        desc: "Una vareta llarga i flexible, tub de PVC o dues branques llargues lligades pel centre per donar la forma d'arc o d'ogiva.",
+      },
+      {
+        nombre: "Eines de tall",
+        desc: "Tisores de podar, una podadora de dues mans i un xerrac per a les branques més gruixudes.",
+      },
+      {
+        nombre: "Escala i guants",
+        desc: "Una escala estable per arribar a dalt i guants per manejar les branques sense esgarrapades.",
+      },
+    ],
+
+    stepsTitle: "Pas a pas",
+    stepsSubtitle: "Segueix l'ordre: de la base cap a la cima, i de fora cap a dins.",
+    steps: [
+      {
+        titulo: "Tria el lloc i mesura el buit",
+        desc: "Busca un carrer estret o un pas entre dues façanes. Mesura la distància entre els dos costats: aquesta serà l'amplada de l'arc. Localitza punts ferms d'ancoratge a cada costat.",
+      },
+      {
+        titulo: "Talla les branques el mateix dia",
+        desc: "Talla branques llargues i ben poblades de fulla a primera hora. Mantén-les a l'ombra, o amb els troncs en aigua, fins al muntatge perquè no es mustiguin.",
+      },
+      {
+        titulo: "Aixeca l'armadura de l'arc",
+        desc: "Creua una corda o cable tibant d'un costat a l'altre, o corba una vareta flexible (o dues branques llargues lligades pel centre) fins a formar l'arc. Fixa'l bé als dos ancoratges: ha d'aguantar el pes i el vent.",
+      },
+      {
+        titulo: "Classifica les branques",
+        desc: "Separa les branques: les més llargues i rectes per al cos de l'arc, les frondoses mitjanes per omplir-lo i les petites per als acabats.",
+      },
+      {
+        titulo: "Lliga primer les branques grans",
+        desc: "Comença per la base de cada costat i puja cap al centre. Lliga les branques grans a l'armadura apuntant cap amunt, muntant cadascuna sobre el tronc de l'anterior, com teules.",
+      },
+      {
+        titulo: "Omple i atapeeix l'arc",
+        desc: "Ves afegint branques mitjanes i petites, encavalcant-les per tapar els buits i els troncs vistos. Com més atapeït, més bonic i verd es veu des de baix.",
+      },
+      {
+        titulo: "Tanca la cima",
+        desc: "Porta branques des dels dos costats fins que es trobin a dalt, formant la punta o corona de l'arc. Remata la unió amb diverses branques petites ben lligades.",
+      },
+      {
+        titulo: "Repassa i assegura",
+        desc: "Revisa tots els lligams i estreny els que estiguin fluixos. Assegura't que res no penja sobre la calçada ni pot caure sobre la gent.",
+      },
+      {
+        titulo: "Decora al teu gust",
+        desc: "Afegeix banderoles, garlandes, flors o cintes amb els colors de la colla, com a la foto. És el toc final que dóna festa a l'arc.",
+      },
+      {
+        titulo: "Rega i gaudeix",
+        desc: "Ruixa les fulles amb aigua per mantenir-les verdes durant les festes. Quan comencin a assecar-se, desmunta l'arc i porta les branques a compostar.",
+      },
+    ],
+
+    tipsTitle: "Consells i seguretat",
+    tips: [
+      "Treballeu sempre en grup: algú subjecta l'escala mentre un altre lliga a dalt.",
+      "Compte amb els cables elèctrics! En molts carrers hi creuen línies: mantén les branques i les eines lluny d'elles.",
+      "No bloquegis del tot el pas de vehicles d'emergència ni tapis senyals o fanals.",
+      "Fes servir brides o filferro, no només corda fina: les branques pesen més del que sembla i el vent estira.",
+      "Demana permís a l'ajuntament o als veïns si vas a ancorar a façanes o balcons.",
+      "Munta l'arc com a molt un dia abans: les branques tallades s'assequen en pocs dies.",
+    ],
+
+    ctaTitle: "El muntem junts?",
+    ctaText: "Vine a celebrar les festes a Villa Nabo, sota l'arc, amb la millor brasa.",
+    ctaButton: "Reservar Taula",
   },
 };
 

@@ -15,6 +15,7 @@ export default function Navbar() {
     { href: "/", label: dict.nav.inicio },
     { href: "/menu", label: dict.nav.menu },
     { href: "/fiestas", label: dict.nav.fiestas },
+    { href: "/arco", label: dict.nav.arco },
     { href: "/contacto", label: dict.nav.contacto },
   ];
 

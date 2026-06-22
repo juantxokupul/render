@@ -39,6 +39,7 @@ export default function Footer() {
     { href: "/", label: dict.footer.links.inicio },
     { href: "/menu", label: dict.footer.links.menu },
     { href: "/fiestas", label: dict.footer.links.fiestas },
+    { href: "/arco", label: dict.footer.links.arco },
     { href: "/contacto", label: dict.footer.links.contacto },
   ];
 

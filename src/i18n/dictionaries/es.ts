@@ -11,6 +11,7 @@ const es = {
     inicio: "Inicio",
     menu: "Menú",
     fiestas: "Fiestas",
+    arco: "El Arco",
     contacto: "Contacto",
     ariaMenu: "Menú",
   },
@@ -29,6 +30,7 @@ const es = {
       inicio: "Inicio",
       menu: "Menú",
       fiestas: "Fiestas & Eventos",
+      arco: "El Arco",
       contacto: "Contacto & Reservas",
     },
     findUsTitle: "Encuéntranos",
@@ -279,6 +281,115 @@ const es = {
     finalCtaText:
       "Reserva tu plaza ahora — la entrada es libre pero el aforo es limitado.",
     finalCtaButton: "¡Reservar plaza ahora!",
+  },
+
+  arco: {
+    heroKicker: "La tradición de la enramada",
+    heroTitle: "El Arco",
+    heroSubtitle:
+      "Guía paso a paso para levantar el arco verde que corona las calles en las fiestas de Arauzo de Torre.",
+
+    introTitle: "Un arco que une al pueblo",
+    introP1:
+      "El arco de ramas, o enramada, es una de las estampas más bonitas de las fiestas: una bóveda de hojas verdes que cruza la calle y da la bienvenida a vecinos y forasteros. Se monta en cuadrilla, casi siempre la mañana del primer día de fiestas.",
+    introP2:
+      "No hace falta ser un experto: con buenas ramas, unos puntos firmes donde anclar y un par de horas de trabajo en equipo, cualquier peña puede levantar el suyo. Aquí tienes todo lo que necesitas saber.",
+
+    factsTitle: "De un vistazo",
+    facts: [
+      { valor: "2–3 h", label: "Tiempo de montaje" },
+      { valor: "3–5", label: "Personas" },
+      { valor: "Chopo", label: "Rama ideal" },
+      { valor: "Mismo día", label: "Cortar las ramas" },
+    ],
+
+    materialsTitle: "Lo que vas a necesitar",
+    materialsSubtitle: "Reúne todo el material antes de empezar; ahorra muchos viajes.",
+    materials: [
+      {
+        nombre: "Ramas verdes y frondosas",
+        desc: "Chopo o álamo, sauce o abedul: ramas largas, flexibles y con mucha hoja. Córtalas la misma mañana del montaje para que lleguen bien verdes.",
+      },
+      {
+        nombre: "Dos puntos de anclaje",
+        desc: "Una calle estrecha entre dos casas es ideal. Aprovecha balcones, rejas o bajantes, o clava dos postes resistentes a cada lado.",
+      },
+      {
+        nombre: "Cuerda, alambre y bridas",
+        desc: "Cuerda fuerte o cable de acero para el armazón, y bridas o alambre fino para atar las ramas sin que se suelten.",
+      },
+      {
+        nombre: "Una estructura curva",
+        desc: "Una varilla larga y flexible, tubo de PVC o dos ramas largas atadas en el centro para dar la forma de arco o de ojiva.",
+      },
+      {
+        nombre: "Herramientas de corte",
+        desc: "Tijeras de podar, una podadora de dos manos y un serrucho para las ramas más gruesas.",
+      },
+      {
+        nombre: "Escalera y guantes",
+        desc: "Una escalera estable para llegar a lo alto y guantes para manejar las ramas sin arañazos.",
+      },
+    ],
+
+    stepsTitle: "Paso a paso",
+    stepsSubtitle: "Sigue el orden: de la base hacia la cima, y de fuera hacia dentro.",
+    steps: [
+      {
+        titulo: "Elige el lugar y mide el hueco",
+        desc: "Busca una calle estrecha o un paso entre dos fachadas. Mide la distancia entre los dos lados: ese será el ancho del arco. Localiza puntos firmes de anclaje a cada lado.",
+      },
+      {
+        titulo: "Corta las ramas el mismo día",
+        desc: "Corta ramas largas y bien pobladas de hoja a primera hora. Mantenlas a la sombra, o con los troncos en agua, hasta el montaje para que no se mustien.",
+      },
+      {
+        titulo: "Levanta el armazón del arco",
+        desc: "Cruza una cuerda o cable tenso de un lado a otro, o curva una varilla flexible (o dos ramas largas atadas en el centro) hasta formar el arco. Fíjalo bien a los dos anclajes: debe aguantar el peso y el viento.",
+      },
+      {
+        titulo: "Clasifica las ramas",
+        desc: "Separa las ramas: las más largas y rectas para el cuerpo del arco, las frondosas medianas para rellenar y las pequeñas para los remates.",
+      },
+      {
+        titulo: "Ata las ramas grandes primero",
+        desc: "Empieza por la base de cada lado y sube hacia el centro. Ata las ramas grandes al armazón apuntando hacia arriba, montando cada una sobre el tronco de la anterior, como tejas.",
+      },
+      {
+        titulo: "Rellena y tupe el arco",
+        desc: "Ve añadiendo ramas medianas y pequeñas, solapándolas para tapar los huecos y los troncos vistos. Cuanto más tupido, más bonito y verde se ve desde abajo.",
+      },
+      {
+        titulo: "Cierra la cima",
+        desc: "Lleva ramas desde los dos lados hasta que se encuentren arriba, formando la punta o corona del arco. Remata la unión con varias ramas pequeñas bien atadas.",
+      },
+      {
+        titulo: "Repasa y asegura",
+        desc: "Revisa todos los amarres y aprieta los que estén flojos. Asegúrate de que nada cuelga sobre la calzada ni puede caerse sobre la gente.",
+      },
+      {
+        titulo: "Decora a tu gusto",
+        desc: "Añade banderines, guirnaldas, flores o cintas con los colores de la peña, como en la foto. Es el toque final que le da fiesta al arco.",
+      },
+      {
+        titulo: "Riega y disfruta",
+        desc: "Rocía las hojas con agua para mantenerlas verdes durante las fiestas. Cuando empiecen a secarse, desmonta el arco y lleva las ramas a compostar.",
+      },
+    ],
+
+    tipsTitle: "Consejos y seguridad",
+    tips: [
+      "Trabajad siempre en grupo: alguien sujeta la escalera mientras otro ata en alto.",
+      "¡Cuidado con los cables eléctricos! En muchas calles cruzan tendidos: mantén las ramas y las herramientas lejos de ellos.",
+      "No bloquees del todo el paso de vehículos de emergencia ni tapes señales o farolas.",
+      "Usa bridas o alambre, no solo cuerda fina: las ramas pesan más de lo que parece y el viento tira.",
+      "Pide permiso al ayuntamiento o a los vecinos si vas a anclar en fachadas o balcones.",
+      "Monta el arco como mucho un día antes: las ramas cortadas se secan en pocos días.",
+    ],
+
+    ctaTitle: "¿Lo montamos juntos?",
+    ctaText: "Ven a celebrar las fiestas a Villa Nabo, debajo del arco, con la mejor brasa.",
+    ctaButton: "Reservar Mesa",
   },
 };
 
